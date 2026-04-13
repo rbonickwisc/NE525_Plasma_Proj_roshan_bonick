@@ -1,0 +1,6 @@
+Metadata-Version: 2.4
+Name: tokamak-source-model
+Version: 0.1.0
+Summary: Tokamak DT neutron source model for the NE525 project
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
