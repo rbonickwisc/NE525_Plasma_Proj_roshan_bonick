@@ -171,10 +171,10 @@ def plot_sampled_birth_points(
     plt.close(fig)
 
     def plot_mesh_convergence(
-            mesh_sizes: list[str],
-            volumes_m3: np.ndarray,
-            total_rates_n_per_s: np.ndarray,
-            output_path: str | Path | None = None,
+        mesh_sizes: list[str],
+        volumes_m3: np.ndarray,
+        total_rates_n_per_s: np.ndarray,
+        output_path: str | Path | None = None,
     ) -> None:
         """
         Plot mesh-convergence trends for plasma volume and total neutron rate
