@@ -170,39 +170,39 @@ def plot_sampled_birth_points(
 
     plt.close(fig)
 
-    def plot_mesh_convergence(
-        mesh_sizes: list[str],
-        volumes_m3,
-        total_rates_n_per_s,
-        output_path=None,
-    ) -> None:
-        """
-        Plot mesh-convergence trends for plasma volume and total neutron rate
-        """
-        fig, ax1 = plt.subplots(figsize=(8, 5))
+def plot_mesh_convergence(
+    mesh_sizes: list[str],
+    volumes_m3,
+    total_rates_n_per_s,
+    output_path=None,
+) -> None:
+    """
+    Plot mesh-convergence trends for plasma volume and total neutron rate
+    """
+    fig, ax1 = plt.subplots(figsize=(8, 5))
 
-        x = np.arange(len(mesh_sizes))
+    x = np.arange(len(mesh_sizes))
 
-        ax1.plot(x, volumes_m3, maker="o", label="Plasma volume")
-        ax1.set_xlabel("Mesh resolution (num_a, num_alpha)")
-        ax1.set_ylabel("Plasma volume [m^3]")
-        ax1.set_xticks(x)
-        ax1.set_xticklabels(mesh_sizes, rotation=30)
+    ax1.plot(x, volumes_m3, marker="o", label="Plasma volume")
+    ax1.set_xlabel("Mesh resolution (num_a, num_alpha)")
+    ax1.set_ylabel("Plasma volume [m^3]")
+    ax1.set_xticks(x)
+    ax1.set_xticklabels(mesh_sizes, rotation=30)
 
-        ax2 = ax1.twinx()
-        ax2.plot(x, total_rates_n_per_s, marker="s", linestyle="--", label = "Total neutron rate")
-        ax2.set_ylabel("Total neutron rate [n/s]")
+    ax2 = ax1.twinx()
+    ax2.plot(x, total_rates_n_per_s, marker="s", linestyle="--", label = "Total neutron rate")
+    ax2.set_ylabel("Total neutron rate [n/s]")
 
-        ax1.set_title("Mesh Convergence")
-        ax1.grid(True)
+    ax1.set_title("Mesh Convergence")
+    ax1.grid(True)
 
-        lines1, labels1 = ax1.get_legend_handles_labels()
-        lines2, labels2 = ax2.get_legend_handles_labels()
-        ax1.legend(lines1 + lines2, labels1 + labels2, loc="best")
+    lines1, labels1 = ax1.get_legend_handles_labels()
+    lines2, labels2 = ax2.get_legend_handles_labels()
+    ax1.legend(lines1 + lines2, labels1 + labels2, loc="best")
 
-        if output_path is not None:
-            output_path = Path(output_path)
-            output_path.parent.mkdir(parents=True, exist_ok=True)
-            fig.savefig(output_path, dpi=200, bbox_inches="tight")
+    if output_path is not None:
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(output_path, dpi=200, bbox_inches="tight")
 
-        plt.close(fig)
+    plt.close(fig)
