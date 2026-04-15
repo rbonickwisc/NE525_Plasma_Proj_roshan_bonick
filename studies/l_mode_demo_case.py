@@ -102,6 +102,8 @@ def main() -> None:
     print(f"Mean sampled energy  = {np.mean(samples.energy_eV):.6e}")
     print(f"Mean direction norm  = {np.mean(direction_norms):.12f}")
     print(f"Weight sum           = {np.sum(samples.weight):.12f}")
+    print(f"x range              = [{np.min(samples.x_m):.6e}, {np.max(samples.x_m):.6e}] m")
+    print(f"z range              = [{np.min(samples.z_m):.6e}, {np.max(samples.z_m):.6e}] m")
 
     surface_radii_m = np.linspace(
         0.1 * geometry.minor_radius_m,

@@ -4,7 +4,8 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from .normalization import build_source_probability_map
+from .geometry import surface_to_rz
+from .normalization import build_source_cell_probability_map
 from .parameters import MeshParameters, SourceModelParameters
 
 @dataclass
@@ -34,10 +35,12 @@ def sample_birth_positions(
     Sample neutron birth positions in 3D cartesian coordinates
     
     Method:
-    1. Build normalized source probability map on the (a, alpha) mesh
-    2. Sample one poloidal source point (R, Z) from that map
-    3. Sample toroidal angle phi uniformly in [0, 2*pi]
-    4. Convert cylindrical (R, phi, Z) to cartestian (x, y, z)
+    1. Build normalized source cell probabilities on the (a, alpha) grid
+    2. Sample a cell index according to its weight
+    3. Sample uniformly within that cell in a and alpha
+    4. Map the sampled (a, alpha) point to (R, Z)
+    5. Sample toroidal angle phi uniformly in [0, 2*pi)
+    6. Convert cylindrical (R, phi, Z) to cartesian (x, y, z)
     """
     
     if n_samples <= 0:
@@ -46,20 +49,36 @@ def sample_birth_positions(
     if rng is None:
         rng = np.random.default_rng()
 
-    _, _, R_m, Z_m, probability_map = build_source_probability_map(model, mesh)
+    a_edges_m, alpha_edges_rad, cell_probability_map = build_source_cell_probability_map(model, mesh)
 
-    flat_prob = probability_map.ravel()
+    flat_prob = cell_probability_map.ravel()
     flat_prob = flat_prob / np.sum(flat_prob)
 
-    flat_indices = rng.choice(
+    sampled_flat_indices = rng.choice(
         flat_prob.size,
         size=n_samples,
         replace=True,
         p=flat_prob,
     )
 
-    sampled_R_m = R_m.ravel()[flat_indices]
-    sampled_Z_m = Z_m.ravel()[flat_indices]
+    n_alpha = cell_probability_map.shape[1]
+    i_a = sampled_flat_indices // n_alpha
+    i_alpha = sampled_flat_indices % n_alpha
+
+    a_low = a_edges_m[i_a]
+    a_high = a_edges_m[i_a + 1]
+
+    alpha_low = alpha_edges_rad[i_alpha]
+    alpha_high = alpha_edges_rad[i_alpha + 1]
+
+    sampled_a_m = rng.uniform(a_low, a_high)
+    sampled_alpha_rad = rng.uniform(alpha_low, alpha_high)
+
+    sampled_R_m, sampled_Z_m = surface_to_rz(
+        sampled_a_m,
+        sampled_alpha_rad,
+        model.geometry,
+    )
 
     phi_rad = rng.uniform(0.0, 2.0 * np.pi, size=n_samples)
 

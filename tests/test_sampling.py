@@ -42,6 +42,38 @@ def test_birth_energies_are_monoenergetic_in_first_pass():
     energies = sample_birth_energies_eV(1000)
     assert np.allclose(energies, 14.1e6)
 
+def test_sample_birth_positions_returns_correct_length():
+    model = make_l_mode_model()
+    mesh = MeshParameters(num_a=120, num_alpha=180)
+    rng = np.random.default_rng(123)
+
+    x_m, y_m, z_m = sample_birth_positions(
+        n_samples=2000,
+        model=model,
+        mesh=mesh,
+        rng=rng
+    )
+
+    assert len(x_m) == 2000
+    assert len(y_m) == 2000
+    assert len(z_m) == 2000
+
+def test_sample_birth_positions_are_finite():
+    model = make_l_mode_model()
+    mesh = MeshParameters(num_a=120, num_alpha=180)
+    rng = np.random.default_rng(123)
+
+    x_m, y_m, z_m = sample_birth_positions(
+        n_samples=2000,
+        model=model,
+        mesh=mesh,
+        rng=rng
+    )
+
+    assert np.all(np.isfinite(x_m))
+    assert np.all(np.isfinite(y_m))
+    assert np.all(np.isfinite(z_m))
+
 def test_sample_source_particles_has_consistent_lengths():
     model = make_l_mode_model()
     mesh = MeshParameters(num_a=120, num_alpha=180)

@@ -15,9 +15,9 @@ def build_a_alpha_mesh(
 
     Returns
     -----------------
-    a_mesh_m - np.ndarray
+    a_mesh_m: np.ndarray
         2D array of a values [m]
-    alpha_mesh_rad - np.ndarray
+    alpha_mesh_rad: np.ndarray
         2D array of alpha values [rad]
     """
     a_grid_m = np.linspace(
@@ -39,6 +39,54 @@ def build_a_alpha_mesh(
     )
 
     return a_mesh_m, alpha_mesh_rad
+
+def build_a_alpha_cell_centers_and_edges(
+        model: SourceModelParameters,
+        mesh: MeshParameters,
+) ->tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """
+    Build 1D arrays of a/alpha cell centers and edges
+
+    Returns
+    ------------------
+    a_centers_m
+    alpha_centers_rad
+    a_edges_m
+    alpha_edges_rad
+    """
+    a_centers_m = np.linspace(
+        mesh.a_grid_min_m,
+        model.geometry.minor_radius_m,
+        mesh.num_a,
+    )
+    alpha_centers_rad = np.linspace(
+        0.0,
+        2.0 * np.pi,
+        mesh.num_alpha,
+        endpoint=False,
+    )
+
+    if len(a_centers_m) < 2 or len(alpha_centers_rad) < 2:
+        raise ValueError("Mesh must have at least 2 opints in both a and alpha")
+    da = a_centers_m[1] - a_centers_m[0]
+    dalpha = alpha_centers_rad[1] - alpha_centers_rad[0]
+
+    a_edges_m = np.empty(len(a_centers_m) + 1, dtype=float)
+    a_edges_m[1:-1] = 0.5 * (a_centers_m[:-1] + a_centers_m[1:])
+    a_edges_m[0] = a_centers_m[0] - 0.5 * da
+    a_edges_m[-1] = a_centers_m[-1] + 0.5 * da
+
+    a_edges_m[0] = max(a_edges_m[0], mesh.a_grid_min_m)
+    a_edges_m[-1] = min(a_edges_m[-1], model.geometry.minor_radius_m)
+
+    alpha_edges_rad = np.empty(len(alpha_centers_rad) + 1, dtype=float)
+    alpha_edges_rad[:-1] = alpha_centers_rad - 0.5 * dalpha
+    alpha_edges_rad[-1] = alpha_centers_rad[-1] + 0.5 * dalpha
+
+    alpha_edges_rad[0] = 0.0
+    alpha_edges_rad[-1] = 2.0 * np.pi
+
+    return a_centers_m, alpha_centers_rad, a_edges_m, alpha_edges_rad
 
 def poloidal_area_element_m2(
         model: SourceModelParameters,
@@ -173,3 +221,29 @@ def build_source_probability_map(
     probability_map = unnormalized_weights / total_weight
 
     return a_mesh_m, alpha_mesh_rad, R_m, Z_m, probability_map
+
+def build_source_cell_probability_map(
+        model: SourceModelParameters,
+        mesh: MeshParameters,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """
+    Build a normalized probability map over source cells, along
+    with the 1D cell edge arrays for a and alpha
+
+    Returns
+    ------------------
+    a_edges_m
+    alpha_edges_rad
+    cell_probability_map
+
+    Notes
+    ----------
+    This uses center based probability map as a first-order estimate
+    of cell probabilites
+    """
+    _, _, _, _, probability_map = build_source_probability_map(model, mesh)
+    _, _, a_edges_m, alpha_edges_rad = build_a_alpha_cell_centers_and_edges(model, mesh)
+
+    cell_probability_map = probability_map / np.sum(probability_map)
+
+    return a_edges_m, alpha_edges_rad, cell_probability_map
