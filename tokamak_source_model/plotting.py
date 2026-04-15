@@ -53,7 +53,7 @@ def plot_profiles_vs_a(
 
     ax1.plot(a_m, ni_m3, label="Ion density")
     ax1.set_xlabel( "a [m]")
-    ax1.set_ylabel(r"$n_i$ [m$^{-3}]")
+    ax1.set_ylabel(r"$n_i$ [m$^-$$^3$]")
 
     ax2 = ax1.twinx()
     ax2.plot(a_m, Ti_keV, linestyle="--", label = "Ion temperature")
@@ -94,7 +94,7 @@ def plot_source_quantities_vs_a(
         linestyle="--",
         label="Source Density"
     )
-    ax2.set_ylabel(r"$S$ [n / (m$^3 s)]")
+    ax2.set_ylabel(r"$S$ [n / (m$^3$ s)]")
 
     ax1.set_title("DT Reactivity and Source Density vs a")
     ax1.grid(True)

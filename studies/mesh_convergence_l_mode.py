@@ -79,7 +79,7 @@ def main() -> None:
     volume_rel_diff_percent = 100.0 * (volumes_m3 - finest_volume) / finest_volume
     total_rate_rel_diff_percent = 100.0 * (total_rates_n_per_s - finest_total_rate) / finest_total_rate
 
-    print("L-mode mesh convergence study")
+    print("L-mode mesh convergence study(uses mesh (300, 540) as reference)")
     print("-------------------------")
     print(
         f"{'mesh':>16} | {'volume [m^3]':>16} | {'Δvol [%]':>12} | "
