@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Literal
+import numpy as np
 
 ProfileMode = Literal["l_mode", "pedestal"]
 
@@ -96,3 +97,19 @@ class SourceModelParameters:
     geometry: GeometryParameters
     profile: ProfileParameters
     fuel: FuelParameters
+
+@dataclass
+class ProfileEvaluation:
+    """
+    Container for evaluated 1D source-profile quantities on the a-grid
+    """
+
+    a_m: np.ndarray
+
+    ion_density_m3: np.ndarray
+    deuterium_density_m3: np.ndarray
+    tritium_density_m3: np.ndarray
+
+    ion_temp_keV: np.ndarray
+    reactivity_m3_per_s: np.ndarray
+    source_density_n_per_m3_per_s: np.ndarray
