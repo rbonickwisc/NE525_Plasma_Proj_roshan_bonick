@@ -172,14 +172,14 @@ def plot_sampled_birth_points(
 
     def plot_mesh_convergence(
         mesh_sizes: list[str],
-        volumes_m3: np.ndarray,
-        total_rates_n_per_s: np.ndarray,
-        output_path: str | Path | None = None,
+        volumes_m3,
+        total_rates_n_per_s,
+        output_path=None,
     ) -> None:
         """
         Plot mesh-convergence trends for plasma volume and total neutron rate
         """
-        fig, ax1 = plt.subplots(figsize=(8,5))
+        fig, ax1 = plt.subplots(figsize=(8, 5))
 
         x = np.arange(len(mesh_sizes))
 
@@ -190,7 +190,7 @@ def plot_sampled_birth_points(
         ax1.set_xticklabels(mesh_sizes, rotation=30)
 
         ax2 = ax1.twinx()
-        ax2.plot(x, total_rates_n_per_s, maker="s", linestyle="--", label = "Total neutron rate")
+        ax2.plot(x, total_rates_n_per_s, marker="s", linestyle="--", label = "Total neutron rate")
         ax2.set_ylabel("Total neutron rate [n/s]")
 
         ax1.set_title("Mesh Convergence")

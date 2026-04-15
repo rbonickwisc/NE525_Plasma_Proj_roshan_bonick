@@ -32,7 +32,7 @@ def make_l_mode_model() -> SourceModelParameters:
     )
 
 def test_multiple_meshes_produce_positive_integrals():
-    model = make_l_mode_model
+    model = make_l_mode_model()
     
     mesh_list = [
         MeshParameters(num_a=40, num_alpha=60),
