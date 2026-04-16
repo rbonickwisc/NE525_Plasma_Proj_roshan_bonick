@@ -182,7 +182,7 @@ def plot_mesh_convergence(
     fig, ax1 = plt.subplots(figsize=(8, 5))
 
     x = np.arange(len(mesh_sizes))
-
+    
     ax1.plot(x, volumes_m3, marker="o", label="Plasma volume")
     ax1.set_xlabel("Mesh resolution (num_a, num_alpha)")
     ax1.set_ylabel("Plasma volume [m^3]")
@@ -205,4 +205,128 @@ def plot_mesh_convergence(
         output_path.parent.mkdir(parents=True, exist_ok=True)
         fig.savefig(output_path, dpi=200, bbox_inches="tight")
 
+    plt.close(fig)
+
+def plot_profile_comparison_vs_a(
+    a_m: np.ndarray,
+    l_mode_evaluation,
+    pedestal_evaluation,
+    output_path: str | Path | None = None,
+) -> None:
+    """
+    Compare L-mode and pedestal-mode source quantities versus a
+    """
+
+    fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+
+    ax = axes[0, 0]
+    ax.plot(a_m, l_mode_evaluation.ion_density_m3, label="L-mode")
+    ax.plot(a_m, pedestal_evaluation.ion_density_m3, linestyle="--", label="Pedestal")
+    ax.set_title(r"Ion density $n_i(a)$")
+    ax.set_xlabel("a [m]")
+    ax.set_ylabel(r"$n_i$ [m$^-$$^3$]")
+    ax.grid(True)
+    ax.legend()
+
+    ax = axes[0, 1]
+    ax.plot(a_m, l_mode_evaluation.ion_temp_keV, label="L-mode")
+    ax.plot(a_m, pedestal_evaluation.ion_temp_keV, linestyle="--", label="Pedestal")
+    ax.set_title(r"Ion temperature $T_i(a)$")
+    ax.set_xlabel("a [m]")
+    ax.set_ylabel(r"$T_i$ [keV]")
+    ax.grid(True)
+    ax.legend()
+
+    ax = axes[1, 0]
+    ax.plot(a_m, l_mode_evaluation.reactivity_m3_per_s, label="L-mode")
+    ax.plot(a_m, pedestal_evaluation.reactivity_m3_per_s, linestyle="--", label="Pedestal")
+    ax.set_title(r"DT reactivity $\langle \sigma v \rangle(a)$")
+    ax.set_xlabel("a [m]")
+    ax.set_ylabel(r"$\langle \sigma v \rangle$ [m$^3$/s]")
+    ax.grid(True)
+    ax.legend()
+
+    ax = axes[1, 1]
+    ax.plot(
+        a_m,
+        l_mode_evaluation.source_density_n_per_m3_per_s,
+        label = "L-mode",
+    )
+    ax.plot(
+        a_m,
+        pedestal_evaluation.source_density_n_per_m3_per_s,
+        linestyle="--",
+        label="Pedestal"
+    )
+    ax.set_title(r"Source density $S(a)$")
+    ax.set_xlabel("a [m]")
+    ax.set_ylabel(r"$S$ [n/(m$3$ s)]")
+    ax.grid(True)
+    ax.legend()
+
+    fig.tight_layout()
+
+    if output_path is not None:
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(output_path, dpi=200, bbox_inches="tight")
+
+    plt.close(fig)
+
+def plot_profile_comparison_custom_labels(
+    a_m: np.ndarray,
+    first_evaluation,
+    second_evaluation,
+    first_label: str,
+    second_label: str,
+    output_path: str | Path | None = None,
+) -> None:
+    """
+    Compare two source profile evaluations
+    """
+    fig, axes = plt.subplots(2, 2, figsize=(10,8))
+
+    ax = axes[0, 0]
+    ax.plot(a_m, first_evaluation.ion_density_m3, label=first_label)
+    ax.plot(a_m, second_evaluation.ion_density_m3, linestyle="--", label=second_label)
+    ax.set_title(r"Ion density $n_i(a)$")
+    ax.set_xlabel("a [m]")
+    ax.set_ylabel(r"$n_i$ [m$^-$$^3$]")
+    ax.grid(True)
+    ax.legend()
+
+    ax = axes [0, 1]
+    ax.plot(a_m, first_evaluation.ion_temp_keV, label=first_label)
+    ax.plot(a_m, second_evaluation.ion_temp_keV, linestyle="--", label=second_label)
+    ax.set_title(r"Ion temperature $T_i(a)$")
+    ax.set_xlabel("a [m]")
+    ax.set_ylabel(r"$T_i$ [keV]")
+    ax.grid(True)
+    ax.legend()
+
+    ax = axes[1, 0]
+    ax.plot(a_m, first_evaluation.reactivity_m3_per_s, label=first_label)
+    ax.plot(a_m, second_evaluation.reactivity_m3_per_s, linestyle="--", label=second_label)
+    ax.set_title(r"DT reactivity $\langle \sigma v \rangle(a)$")
+    ax.set_xlabel("a [m]")
+    ax.set_ylabel(r"$\langle \sigma v \rangle$ [m$^3$/s]")
+    ax.grid(True)
+    ax.legend()
+
+    ax = axes[1, 1]
+    ax.plot(a_m, second_evaluation.source_density_n_per_m3_per_s, label=first_label)
+    ax.plot(a_m, second_evaluation.source_density_n_per_m3_per_s, linestyle="--", label=second_label)
+    ax.set_title(r"Source density $S(a)$")
+    ax.set_xlabel("a [m]")
+    ax.set_ylabel(r"$S$ [n/(m$^3$ s)]")
+    ax.grid(True)
+    ax.legend()
+
+    fig.tight_layout()
+
+    if output_path is not None:
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(output_path, dpi=200, bbox_inches="tight")
+                    
     plt.close(fig)

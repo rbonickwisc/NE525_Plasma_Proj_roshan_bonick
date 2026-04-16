@@ -6,23 +6,14 @@ import numpy as np
 
 from tokamak_source_model.geometry import make_a_alpha_grids
 from tokamak_source_model.normalization import build_source_probability_map, estimate_total_neutron_rate_n_per_s, estimate_total_plasma_volume_m3
-from tokamak_source_model.parameters import (
-    FuelParameters, 
-    GeometryParameters,
-    MeshParameters,
-    ProfileParameters,
-    SourceModelParameters,
-)
-
+from tokamak_source_model.parameters import FuelParameters, GeometryParameters, MeshParameters, ProfileParameters, SourceModelParameters
+from tokamak_source_model.plotting import plot_magnetic_surfaces, plot_probability_map_rz, plot_profiles_vs_a, plot_sampled_birth_points, plot_source_quantities_vs_a
 from tokamak_source_model.sampling import sample_source_particles
-from tokamak_source_model.plotting import plot_magnetic_surfaces, plot_profiles_vs_a, plot_source_quantities_vs_a, plot_probability_map_rz, plot_sampled_birth_points
-from tokamak_source_model.profiles import ion_density_profile_m3, ion_temperature_profile_keV
 from tokamak_source_model.source_density import evaluate_profiles
 from tokamak_source_model.validation import validate_source_model_parameters
 
-
 def main() -> None:
-    output_dir = Path("studies/output/l_mode")
+    output_dir = Path("studies/output/a_mode")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     geometry = GeometryParameters(
@@ -30,15 +21,21 @@ def main() -> None:
         minor_radius_m=0.5,
         elongation=1.7,
         triangularity=0.33,
-        shafranov_shift_m=0.1,
+        shafranov_shift_m=0.1
     )
 
     profile = ProfileParameters(
-        mode="l_mode",
-        ion_density_center_m3=2.0e20,
-        ion_temp_center_keV=15.0,
-        alpha_n=0.5,
-        alpha_T=1.0,
+        mode="pedestal", 
+        ion_density_center_m3=1.09e20, 
+        ion_temp_center_keV=45.9,
+        alpha_n=1.0,
+        alpha_T=8.06,
+        pedestal_radius_m=0.8 * geometry.minor_radius_m,
+        ion_density_pedestal_m3=1.09e20,
+        ion_density_separatrix_m3=3.0e19,
+        ion_temp_pedestal_keV=6.09,
+        ion_temp_separatrix_keV=0.1,
+        beta_T=6.0,
     )
 
     fuel = FuelParameters(
@@ -64,7 +61,7 @@ def main() -> None:
 
     total_volume_m3 = estimate_total_plasma_volume_m3(model, mesh)
     total_rate_n_per_s = estimate_total_neutron_rate_n_per_s(model, mesh)
-
+    
     _, _, R_m, Z_m, probability_map = build_source_probability_map(model, mesh)
 
     rng = np.random.default_rng(42)
@@ -77,8 +74,8 @@ def main() -> None:
 
     direction_norms = np.sqrt(samples.u_x**2 + samples.u_y**2 + samples.u_z**2)
 
-    print("L-mode demo case")
-    print("----------------")
+    print("A-mode demo case")
+    print("-" * 25)
     print(f"n_i(center) = {evaluation.ion_density_m3[0]:.6e} m^-3")
     print(f"T_i(center) = {evaluation.ion_temp_keV[0]:.6e} keV")
     print(f"<sv>(center) = {evaluation.reactivity_m3_per_s[0]:.6e} m^3/s")
@@ -105,6 +102,7 @@ def main() -> None:
     print(f"x range              = [{np.min(samples.x_m):.6e}, {np.max(samples.x_m):.6e}] m")
     print(f"z range              = [{np.min(samples.z_m):.6e}, {np.max(samples.z_m):.6e}] m")
 
+
     surface_radii_m = np.linspace(
         0.1 * geometry.minor_radius_m,
         geometry.major_radius_m,
@@ -115,32 +113,32 @@ def main() -> None:
         geometry=geometry,
         surface_radii_m=surface_radii_m,
         alpha_rad=alpha_grid_rad,
-        output_path=output_dir / "magnetic_surfaces.png",
+        output_path=output_dir / "a_mode_magnetic_surfaces.png",
     )
 
     plot_profiles_vs_a(
         a_m=a_grid_m,
         geometry=geometry,
         profile=profile,
-        output_path=output_dir / "l_mode_profiles.png"
+        output_path=output_dir / "a_mode_profiles.png"
     )
 
     plot_source_quantities_vs_a(
         evaluation=evaluation,
-        output_path=output_dir / "l_mode_source_quantities.png"
+        output_path=output_dir / "_mode_source_quantities.png"
     )
 
     plot_probability_map_rz(
         R_m=R_m,
         Z_m=Z_m,
         probability_map=probability_map,
-        output_path=output_dir / "l_mode_probability.png"
+        output_path=output_dir / "a_mode_probability.png"
     )
 
     plot_sampled_birth_points(
         x_m=samples.x_m,
         z_m=samples.z_m,
-        output_path = output_dir / "l_mode_sampled_birth_points.png"
+        output_path = output_dir / "a_mode_sampled_birth_points.png"
     )
 
 if __name__ == "__main__":
