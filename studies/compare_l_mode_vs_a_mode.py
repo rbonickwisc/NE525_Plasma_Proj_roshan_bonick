@@ -13,7 +13,7 @@ from tokamak_source_model.source_density import evaluate_profiles
 from tokamak_source_model.validation import validate_source_model_parameters
 
 def main() -> None:
-    output_dir = Path("studies/output/a_mode")
+    output_dir = Path("studies/output/comparisons")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     geometry = GeometryParameters(
