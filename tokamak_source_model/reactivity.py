@@ -44,9 +44,14 @@ def dt_reactivity_m3_per_s(
 
     if np.any(U <= 0.0):
         raise ValueError("Computed U became non-positive, recheck input temperature")
-    
+    #reactivity formula has been handchecked and is accurate to formula given by paper
     reactivity = (
         C1 / (U ** (5.0/6.0) * Ti ** (2.0/3.0)) * np.exp(-C2 * (U/Ti) ** (1.0/3.0))
     )
 
     return reactivity
+
+#Can use to print reactivity values for given T_i
+#T_i_test = 15.0
+#reactivity_test= dt_reactivity_m3_per_s(T_i_test)
+#print(f"{reactivity_test}")

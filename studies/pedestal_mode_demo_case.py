@@ -4,9 +4,9 @@ from pathlib import Path
 
 import numpy as np
 
+from tokamak_source_model.case_builder import build_default_mesh, build_generic_pedestal_model
 from tokamak_source_model.geometry import make_a_alpha_grids
 from tokamak_source_model.normalization import build_source_probability_map, estimate_total_neutron_rate_n_per_s, estimate_total_plasma_volume_m3
-from tokamak_source_model.parameters import FuelParameters, GeometryParameters, MeshParameters, ProfileParameters, SourceModelParameters
 from tokamak_source_model.plotting import plot_magnetic_surfaces, plot_probability_map_rz, plot_profiles_vs_a, plot_sampled_birth_points, plot_source_quantities_vs_a
 from tokamak_source_model.sampling import sample_source_particles
 from tokamak_source_model.source_density import evaluate_profiles
@@ -16,48 +16,13 @@ def main() -> None:
     output_dir = Path("studies/output/pedestal_mode")
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    geometry = GeometryParameters(
-        major_radius_m=2.0,
-        minor_radius_m=0.5,
-        elongation=1.7,
-        triangularity=0.33,
-        shafranov_shift_m=0.1,
-    )
+    model = build_generic_pedestal_model()
+    mesh = build_default_mesh()
 
-    # First pedestal-mode case
-    # Numbers are good enough to test pedestal-mode behavior but do not replicate
-    # a DEMO A-mode source like referenced in the paper
-    profile = ProfileParameters(
-        mode="pedestal",
-        ion_density_center_m3=2.0e20,
-        ion_temp_center_keV=20.0,
-        alpha_n=1.0,
-        alpha_T=4.0,
-        pedestal_radius_m=0.8 * geometry.minor_radius_m,
-        ion_density_pedestal_m3=1.8e20,
-        ion_density_separatrix_m3=3.0e19,
-        ion_temp_pedestal_keV=4.0,
-        ion_temp_separatrix_keV=0.1,
-        beta_T=6.0,
-    )
-
-    fuel= FuelParameters(
-        deuterium_fraction=0.5,
-        tritium_fraction=0.5,
-    )
-
-    model = SourceModelParameters(
-        geometry=geometry,
-        profile=profile,
-        fuel=fuel,
-    )
+    geometry = model.geometry
+    profile = model.profile
 
     validate_source_model_parameters(model)
-
-    mesh = MeshParameters(
-        num_a=200,
-        num_alpha=360,
-    )
 
     a_grid_m, alpha_grid_rad = make_a_alpha_grids(model.geometry, mesh)
     evaluation = evaluate_profiles(a_grid_m, model)

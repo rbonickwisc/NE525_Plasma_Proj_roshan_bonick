@@ -16,39 +16,13 @@ def main() -> None:
     output_dir = Path("studies/output/l_mode")
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    geometry = GeometryParameters(
-        major_radius_m=2.0,
-        minor_radius_m=0.5,
-        elongation=1.7,
-        triangularity=0.33,
-        shafranov_shift_m=0.1,
-    )
+    model = build_l_mode_model()
+    mesh = build_default_mesh()
 
-    profile = ProfileParameters(
-        mode="l_mode",
-        ion_density_center_m3=2.0e20,
-        ion_temp_center_keV=15.0,
-        alpha_n=0.5,
-        alpha_T=1.0,
-    )
-
-    fuel = FuelParameters(
-        deuterium_fraction=0.5,
-        tritium_fraction=0.5,
-    )
-
-    model = SourceModelParameters(
-        geometry=geometry,
-        profile=profile,
-        fuel=fuel,
-    )
+    geometry = model.geometry
+    profile = model.profile
 
     validate_source_model_parameters(model)
-
-    mesh = MeshParameters(
-        num_a=200,
-        num_alpha=360,
-    )
 
     a_grid_m, alpha_grid_rad = make_a_alpha_grids(model.geometry, mesh)
     evaluation = evaluate_profiles(a_grid_m, model)
