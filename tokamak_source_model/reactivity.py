@@ -33,7 +33,7 @@ def dt_reactivity_m3_per_s(
     Ti = np.asarray(ion_temp_keV, dtype=float)
 
     if np.any(Ti <= 0.0):
-        raise ValueError("Ion tmeperature must be > 0 keV for DT reactivity")
+        raise ValueError("Ion temperature must be > 0 keV for DT reactivity")
     if np.any(Ti > 100.0):
         raise ValueError("Sadler-Van Belle DT reactivity fit only valid for Ti <= 100 keV")
     
