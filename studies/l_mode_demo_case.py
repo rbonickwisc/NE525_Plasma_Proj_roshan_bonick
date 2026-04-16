@@ -4,22 +4,13 @@ from pathlib import Path
 
 import numpy as np
 
+from tokamak_source_model.case_builder import build_default_mesh, build_l_mode_model
 from tokamak_source_model.geometry import make_a_alpha_grids
 from tokamak_source_model.normalization import build_source_probability_map, estimate_total_neutron_rate_n_per_s, estimate_total_plasma_volume_m3
-from tokamak_source_model.parameters import (
-    FuelParameters, 
-    GeometryParameters,
-    MeshParameters,
-    ProfileParameters,
-    SourceModelParameters,
-)
-
+from tokamak_source_model.plotting import plot_magnetic_surfaces, plot_probability_map_rz, plot_profiles_vs_a, plot_sampled_birth_points, plot_source_quantities_vs_a
 from tokamak_source_model.sampling import sample_source_particles
-from tokamak_source_model.plotting import plot_magnetic_surfaces, plot_profiles_vs_a, plot_source_quantities_vs_a, plot_probability_map_rz, plot_sampled_birth_points
-from tokamak_source_model.profiles import ion_density_profile_m3, ion_temperature_profile_keV
 from tokamak_source_model.source_density import evaluate_profiles
 from tokamak_source_model.validation import validate_source_model_parameters
-from tokamak_source_model.case_builder import build_default_mesh, build_l_mode_model
 
 def main() -> None:
     output_dir = Path("studies/output/l_mode")

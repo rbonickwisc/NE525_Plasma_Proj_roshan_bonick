@@ -13,7 +13,7 @@ def test_isotropic_direction_vectors_are_unit_norm():
     assert np.allclose(norms, 1.0)
 
 def test_isotropic_direction_vectors_are_unit_norm_with_default_rng():
-    u_x, u_y, u_z = sample_isotropic_directions(5000, rng=rng)
+    u_x, u_y, u_z = sample_isotropic_directions(5000)
 
     norms = np.sqrt(u_x**2 + u_y**2 + u_z**2)
     assert np.allclose(norms, 1.0)

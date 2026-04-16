@@ -21,7 +21,7 @@ def test_l_mode_profiles_go_to_zero_at_edge():
    geometry = build_default_geometry()
    profile = build_l_mode_profile()
    
-   a_m = np.array([0.0])
+   a_m = np.array([geometry.minor_radius_m])
 
    ni = ion_density_profile_m3(a_m, geometry, profile)
    Ti = ion_temperature_profile_keV(a_m, geometry, profile)

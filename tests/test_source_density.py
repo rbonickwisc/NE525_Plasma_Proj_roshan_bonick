@@ -18,7 +18,8 @@ def test_source_density_is_nonnegative():
     assert np.all(source_density >= 0.0)
 
 def test_source_density_is_zero_when_no_deuterium():
-    model = build_l_mode_model(deuterium_fraction=0.0, tritium_fraction=1.0)
+    fuel = build_default_fuel(deuterium_fraction=0.0, tritium_fraction=1.0)
+    model = build_l_mode_model(fuel=fuel)
     a_m = np.linspace(0.0, model.geometry.minor_radius_m, 200)
 
     source_density = source_density_profile_n_per_m3_per_s(a_m, model)
@@ -26,7 +27,8 @@ def test_source_density_is_zero_when_no_deuterium():
     assert np.allclose(source_density, 0.0)
 
 def test_source_density_is_zero_when_no_tritium():
-    model = build_l_mode_model(deuterium_fraction=1.0, tritium_fraction=0.0)
+    fuel = build_default_fuel(deuterium_fraction=1.0, tritium_fraction=0.0)
+    model = build_l_mode_model(fuel=fuel)
     a_m = np.linspace(0.0, model.geometry.minor_radius_m, 200)
 
     source_density = source_density_profile_n_per_m3_per_s(a_m, model)
