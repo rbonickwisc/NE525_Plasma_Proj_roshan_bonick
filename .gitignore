@@ -1,1 +1,9 @@
 OPENMC_CROSS_SECTIONS/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.vscode/
+*.egg-info/
+build/
+dist/

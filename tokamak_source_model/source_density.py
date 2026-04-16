@@ -93,7 +93,7 @@ def evaluate_profiles(
         geometry=model.geometry,
         profile=model.profile,
     )
-    deuterium_density_m3 = tritium_density_profile_m3(
+    deuterium_density_m3 = deuterium_density_profile_m3(
         ion_density_m3=ion_density_m3,
         fuel=model.fuel,
     )

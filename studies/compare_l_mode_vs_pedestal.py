@@ -81,7 +81,7 @@ def main() -> None:
     print("-" * 25)
     print(f"L-mode total neutron rate         ={l_rate:.6e} n/s")
     print(f"Pedestal-mode total neutron rate  ={p_rate:.6e} n/s")
-    print(f"Relative difference [%]           ={100.0 * (p_rate / l_rate):.6f}")
+    print(f"Relative difference [%]           ={100.0 * (p_rate - l_rate) / l_rate:.6f}")
 
     plot_profile_comparison_vs_a(
         a_m= a_grid_m,

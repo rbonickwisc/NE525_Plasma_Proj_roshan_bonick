@@ -27,6 +27,9 @@ def test_l_mode_profiles_match_center_values():
     ni = ion_density_profile_m3(a_m, geometry, profile)
     Ti = ion_temperature_profile_keV(a_m, geometry, profile)
 
+    assert np.isclose(ni[0], profile.ion_density_center_m3)
+    assert np.isclose(Ti[0], profile.ion_temp_center_keV)
+
 def test_l_mode_profiles_go_to_zero_at_edge():
     geometry = GeometryParameters(
         major_radius_m=2.0,

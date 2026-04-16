@@ -141,11 +141,11 @@ def toroidal_volume_element_m3(
     dV_m3
     """
 
-    a_mesh_m, alpah_mesh_rad, R_m, Z_m, dA_pol_m2 = poloidal_area_element_m2(model, mesh)
+    a_mesh_m, alpha_mesh_rad, R_m, Z_m, dA_pol_m2 = poloidal_area_element_m2(model, mesh)
 
     dV_m3 = 2.0 * np.pi * R_m * dA_pol_m2
 
-    return a_mesh_m, alpah_mesh_rad, R_m, Z_m, dA_pol_m2, dV_m3
+    return a_mesh_m, alpha_mesh_rad, R_m, Z_m, dA_pol_m2, dV_m3
 
 def estimate_total_neutron_rate_n_per_s(
     model: SourceModelParameters,

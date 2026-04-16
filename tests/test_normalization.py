@@ -53,5 +53,5 @@ def test_probability_map_is_normalized():
 
     _, _, _, _, probability_map = build_source_probability_map(model, mesh)
 
-    assert np.isclose(np.sum(probability_map), 1,0)
+    assert np.isclose(np.sum(probability_map), 1.0)
     assert np.all(probability_map >= 0.0)

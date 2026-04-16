@@ -13,7 +13,7 @@ from tokamak_source_model.source_density import evaluate_profiles
 from tokamak_source_model.validation import validate_source_model_parameters
 
 def main() -> None:
-    output_dir = Path("studies/output/pedestal-mode")
+    output_dir = Path("studies/output/pedestal_mode")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     geometry = GeometryParameters(
@@ -108,7 +108,7 @@ def main() -> None:
 
     surface_radii_m = np.linspace(
         0.1 * geometry.minor_radius_m,
-        geometry.major_radius_m,
+        geometry.minor_radius_m,
         8
     )
         

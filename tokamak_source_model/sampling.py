@@ -100,7 +100,7 @@ def sample_isotropic_directions(
         raise ValueError("n_samples must be > 0")
     
     if rng is None:
-        rng = np.random.default_rng
+        rng = np.random.default_rng()
 
     mu = rng.uniform(-1.0, 1.0, size=n_samples)
     phi = rng.uniform(0.0, 2.0 * np.pi, size=n_samples)

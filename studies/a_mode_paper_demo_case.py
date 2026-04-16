@@ -105,7 +105,7 @@ def main() -> None:
 
     surface_radii_m = np.linspace(
         0.1 * geometry.minor_radius_m,
-        geometry.major_radius_m,
+        geometry.minor_radius_m,
         8
     )
         
@@ -125,7 +125,7 @@ def main() -> None:
 
     plot_source_quantities_vs_a(
         evaluation=evaluation,
-        output_path=output_dir / "_mode_source_quantities.png"
+        output_path=output_dir / "a_mode_source_quantities.png"
     )
 
     plot_probability_map_rz(

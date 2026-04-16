@@ -107,7 +107,7 @@ def main() -> None:
 
     surface_radii_m = np.linspace(
         0.1 * geometry.minor_radius_m,
-        geometry.major_radius_m,
+        geometry.minor_radius_m,
         8
     )
         

@@ -24,18 +24,18 @@ def plot_magnetic_surfaces(
         R_m, Z_m = make_magnetic_surface_curve(a_m, alpha_rad, geometry)
         ax.plot(R_m, Z_m)
 
-        ax.set_xlabel("R [m]")
-        ax.set_ylabel("Z [m]")
-        ax.set_title("Tokamak Magnetic Surfaces")
-        ax.set_aspect("equal")
-        ax.grid(True)
+    ax.set_xlabel("R [m]")
+    ax.set_ylabel("Z [m]")
+    ax.set_title("Tokamak Magnetic Surfaces")
+    ax.set_aspect("equal")
+    ax.grid(True)
 
-        if output_path is not None:
-            output_path = Path(output_path)
-            output_path.parent.mkdir(parents=True, exist_ok=True)
-            fig.savefig(output_path, dpi=200, bbox_inches="tight")
+    if output_path is not None:
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(output_path, dpi=200, bbox_inches="tight")
 
-        plt.close(fig)
+    plt.close(fig)
 
 def plot_profiles_vs_a(
         a_m: np.ndarray,
@@ -108,7 +108,7 @@ def plot_source_quantities_vs_a(
         output_path.parent.mkdir(parents=True, exist_ok=True)
         fig.savefig(output_path, dpi=200, bbox_inches="tight")
 
-        plt.close(fig)
+    plt.close(fig)
 
 def plot_probability_map_rz(
     R_m: np.ndarray,
@@ -314,7 +314,7 @@ def plot_profile_comparison_custom_labels(
     ax.legend()
 
     ax = axes[1, 1]
-    ax.plot(a_m, second_evaluation.source_density_n_per_m3_per_s, label=first_label)
+    ax.plot(a_m, first_evaluation.source_density_n_per_m3_per_s, label=first_label)
     ax.plot(a_m, second_evaluation.source_density_n_per_m3_per_s, linestyle="--", label=second_label)
     ax.set_title(r"Source density $S(a)$")
     ax.set_xlabel("a [m]")
