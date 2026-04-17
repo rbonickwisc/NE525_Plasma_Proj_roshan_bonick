@@ -55,15 +55,26 @@ def test_evaluate_profiles_non_5050_fuel_split():
 
     assert np.allclose(
         evaluation.deuterium_density_m3,
-        0.3 * evaluation.ion_density_m3,
+        2.0 * 0.3 * evaluation.ion_density_m3,
     )
 
     assert np.allclose(
         evaluation.tritium_density_m3,
-        0.7 * evaluation.ion_density_m3,
+        2.0 * 0.7 * evaluation.ion_density_m3,
     )
 
     assert not np.allclose(
         evaluation.deuterium_density_m3,
         evaluation.tritium_density_m3,
+    )
+
+def test_equal_mix_reproduces_Fausser_paper_formula():
+    model = build_l_mode_model()
+    a_m = np.linspace(0.0, model.geometry.minor_radius_m, 200)
+
+    evaluation = evaluate_profiles(a_m, model)
+
+    assert np.allclose(
+        evaluation.source_density_n_per_m3_per_s,
+        evaluation.ion_density_m3**2 * evaluation.reactivity_m3_per_s,
     )

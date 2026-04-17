@@ -51,7 +51,7 @@ def dt_reactivity_m3_per_s(
 
     return reactivity
 
-#Can use to print reactivity values for given T_i
+#Can use lines below to print reactivity values for given T_i
 #T_i_test = 15.0
 #reactivity_test= dt_reactivity_m3_per_s(T_i_test)
 #print(f"{reactivity_test}")

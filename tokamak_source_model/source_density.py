@@ -8,21 +8,30 @@ from .reactivity import dt_reactivity_m3_per_s
 
 def deuterium_density_profile_m3(
         ion_density_m3: np.ndarray,
-        fuel: FuelParameters,
+        fuel,
 ) -> np.ndarray:
     """
-    Compute deuterium density from total ion density and D fraction
+    Convert Fausser paper convention ion density n_i into deuterium density n_D
+
+    Convention used:
+    - ion_density_m3 stores Fausser paper's n_i profile
+    - for a 50/50 DT mix, n_D = n_T = n_i
+    - for a general mix, n_D = 2 * f_D * n_i and n_T = 2 * f_T * n_i
+
+    This guarantees that for f_D = f_T = 0.5:
+        S = n_D * n_T * <sigma v> = n_i^2 * <sigma v>
+    which matches Eq. (1) in Fausser paper
     """
-    return fuel.deuterium_fraction * ion_density_m3
+    return 2.0 * fuel.deuterium_fraction * ion_density_m3
 
 def tritium_density_profile_m3(
         ion_density_m3: np.ndarray,
         fuel: FuelParameters,
 ) -> np.ndarray:
     """
-    Compute tritium density from total ion density and T fraction
+    Convert Fausser paper convention ion density n_i into tritium density n_T
     """
-    return fuel.tritium_fraction * ion_density_m3
+    return 2.0 * fuel.tritium_fraction * ion_density_m3
 
 def source_density_profile_n_per_m3_per_s(
         a_m: np.ndarray,
@@ -69,7 +78,17 @@ def source_density_profile_n_per_m3_per_s(
     source_density = ( deuterium_density_m3 * tritium_density_m3 * reactivity_m3_per_s)
 
     return source_density
-
+    # Important density convention:
+        # ion_density_m3 in this project follows the Fausser paper convention for n_i
+        # For a 50/50 D-T plasma, the paper writes S = n_i^2 * <sigma v>
+        # To reproduce this while still allowing arbitrary D/T fractions
+        # Interpret:
+            # n_D = 2 * f_D * n_i
+            # n_T = 2 * f_T * n_i
+        # So that:
+            # S = n_D*n_T*<sigma v> = 4*f_D*f_T*n_i^2*<sigma v>
+        # and for f_D = f_T = 0.5 this reduces to:
+            # S = n_i^2 * <sigma v>
 def evaluate_profiles(
         a_m: np.ndarray,
         model: SourceModelParameters,

@@ -29,7 +29,7 @@ def build_default_mesh(
 ) -> MeshParameters:
     return MeshParameters(
         num_a=num_a,
-        num_alpha=num_a,
+        num_alpha=num_alpha,
         num_R=num_R,
         num_Z=num_Z,
         a_grid_min_m=a_grid_min_m,
@@ -110,7 +110,7 @@ def build_generic_pedestal_model(
 
     return SourceModelParameters(
         geometry=geometry,
-        profile=build_generic_pedestal_profile(),
+        profile=build_generic_pedestal_profile(geometry),
         fuel=fuel,
     )
 
@@ -125,6 +125,6 @@ def build_a_mode_paper_model(
 
     return SourceModelParameters(
         geometry=geometry,
-        profile=build_a_mode_paper_profile(),
+        profile=build_a_mode_paper_profile(geometry),
         fuel=fuel,
     )
