@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 
 from tokamak_source_model.case_builder import build_default_mesh, build_l_mode_model
-from tokamak_source_model.openmc_adapter import build_openmc_independant_sources, sample_openmc_source_particles, summarize_openmc_source_particles
+from tokamak_source_model.openmc_adapter import build_openmc_independent_sources, sample_openmc_source_particles, summarize_openmc_source_particles
 
 def main() -> None:
     model = build_l_mode_model()
@@ -29,7 +29,7 @@ def main() -> None:
     print(f"mean direction norm  = {summary['mean_direction_norm']:.12f}")
     print(f"weight sum           = {summary['weight_sum']:.12f}")
 
-    sources = build_openmc_independant_sources(
+    sources = build_openmc_independent_sources(
         n_samples=100,
         model=model,
         mesh=mesh,
