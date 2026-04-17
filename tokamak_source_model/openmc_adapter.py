@@ -118,67 +118,6 @@ def build_openmc_independent_sources(
 
     return sources
 
-def build_openmc_source_particles(
-    n_samples: int,
-    model: SourceModelParameters,
-    mesh: MeshParameters,
-    rng: np.random.Generator | None = None,
-) -> list[openmc.SourceParticle]:
-    """
-    Build a list of OpenMC SourceParticle objects that can be used for
-    creating a source file using openmc.write_source_file()
-    """
-    particles = sample_openmc_source_particles(
-        n_samples=n_samples,
-        model=model,
-        mesh=mesh,
-        rng=rng,
-    )
-
-    source_particles: list[openmc.SourceParticle] = []
-
-    for i in range(n_samples):
-        source_particles.append(
-            openmc.SourceParticle(
-                r=(
-                    float(particles.x_cm[i]),
-                    float(particles.y_cm[i]),
-                    float(particles.z_cm[i]),
-                ),
-                u=(
-                    float(particles.x_cm[i]),
-                    float(particles.y_cm[i]),
-                    float(particles.z_cm[i]),
-                ),
-                E=float(particles.energy_eV[i]),
-                wgt=float(particles.weight[i]),
-                particle=openmc.ParticleType.NEUTRON,
-            )
-        )
-
-    return source_particles
-
-def write_openmc_source_file(
-    path: str | Path,
-    n_samples: int,
-    model: SourceModelParameters,
-    mesh: MeshParameters,
-    rng: np.random.Generator | None = None,
-) -> Path:
-    """
-    Samples particles from tokamak source model and write them to an OpenMC source file
-    """
-    path = Path(path)
-
-    source_particles = build_openmc_source_particles(
-        n_samples=n_samples,
-        model=model,
-        mesh=mesh,
-        rng=rng,
-    )
-
-    openmc.write_source_file(source_particles, path)
-    return path
 
 def summarize_openmc_source_particles(
     particles: OpenMCSourceParticles,

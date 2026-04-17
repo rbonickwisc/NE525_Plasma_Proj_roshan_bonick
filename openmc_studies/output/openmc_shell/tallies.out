@@ -1,0 +1,18 @@
+ ======================>     TALLY 1: SHELL_FLUX     <======================
+
+ Cell 2
+   Particle: neutron
+     Total Material
+       Flux                                 695.24 +/- 3.67075
+ ====================>     TALLY 2: SHELL_HEATING     <=====================
+
+ Cell 2
+   Particle: neutron
+     Total Material
+       Current                              4.68391 +/- 0.0258308
+ ================>     TALLY 3: OUTER_SURFACE_CURRENT     <=================
+
+ Surface 2
+   Particle: neutron
+     Total Material
+       Current                              0.0684895 +/- 0.00165971
