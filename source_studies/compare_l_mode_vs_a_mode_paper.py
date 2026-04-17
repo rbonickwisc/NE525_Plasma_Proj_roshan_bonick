@@ -11,7 +11,7 @@ from tokamak_source_model.source_density import evaluate_profiles
 from tokamak_source_model.validation import validate_source_model_parameters
 
 def main() -> None:
-    output_dir = Path("studies/output/comparisons")
+    output_dir = Path("source_studies/output/comparisons")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     l_model = build_l_mode_model()

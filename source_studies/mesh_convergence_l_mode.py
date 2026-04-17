@@ -10,7 +10,7 @@ from tokamak_source_model.validation import validate_source_model_parameters
 
 
 def main() -> None:
-    output_dir = Path("studies/output/l_mode")
+    output_dir = Path("source_studies/output/l_mode")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     model = build_l_mode_model()

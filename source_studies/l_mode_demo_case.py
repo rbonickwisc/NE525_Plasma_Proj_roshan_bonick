@@ -4,7 +4,7 @@ from pathlib import Path
 
 import numpy as np
 
-from tokamak_source_model.case_builder import build_default_mesh, build_generic_pedestal_model
+from tokamak_source_model.case_builder import build_default_mesh, build_l_mode_model
 from tokamak_source_model.geometry import make_a_alpha_grids
 from tokamak_source_model.normalization import build_source_probability_map, estimate_total_neutron_rate_n_per_s, estimate_total_plasma_volume_m3
 from tokamak_source_model.plotting import plot_magnetic_surfaces, plot_probability_map_rz, plot_profiles_vs_a, plot_sampled_birth_points, plot_source_quantities_vs_a
@@ -13,10 +13,10 @@ from tokamak_source_model.source_density import evaluate_profiles
 from tokamak_source_model.validation import validate_source_model_parameters
 
 def main() -> None:
-    output_dir = Path("studies/output/pedestal_mode")
+    output_dir = Path("source_studies/output/l_mode")
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    model = build_generic_pedestal_model()
+    model = build_l_mode_model()
     mesh = build_default_mesh()
 
     geometry = model.geometry
@@ -42,8 +42,8 @@ def main() -> None:
 
     direction_norms = np.sqrt(samples.u_x**2 + samples.u_y**2 + samples.u_z**2)
 
-    print("Pedestal-mode demo case")
-    print("-" * 25)
+    print("L-mode demo case")
+    print("----------------")
     print(f"n_i(center) = {evaluation.ion_density_m3[0]:.6e} m^-3")
     print(f"T_i(center) = {evaluation.ion_temp_keV[0]:.6e} keV")
     print(f"<sv>(center) = {evaluation.reactivity_m3_per_s[0]:.6e} m^3/s")
@@ -70,7 +70,6 @@ def main() -> None:
     print(f"x range              = [{np.min(samples.x_m):.6e}, {np.max(samples.x_m):.6e}] m")
     print(f"z range              = [{np.min(samples.z_m):.6e}, {np.max(samples.z_m):.6e}] m")
 
-
     surface_radii_m = np.linspace(
         0.1 * geometry.minor_radius_m,
         geometry.minor_radius_m,
@@ -81,32 +80,32 @@ def main() -> None:
         geometry=geometry,
         surface_radii_m=surface_radii_m,
         alpha_rad=alpha_grid_rad,
-        output_path=output_dir / "pedestal_mode_magnetic_surfaces.png",
+        output_path=output_dir / "magnetic_surfaces.png",
     )
 
     plot_profiles_vs_a(
         a_m=a_grid_m,
         geometry=geometry,
         profile=profile,
-        output_path=output_dir / "pedestal_mode_profiles.png"
+        output_path=output_dir / "l_mode_profiles.png"
     )
 
     plot_source_quantities_vs_a(
         evaluation=evaluation,
-        output_path=output_dir / "pedestal_mode_source_quantities.png"
+        output_path=output_dir / "l_mode_source_quantities.png"
     )
 
     plot_probability_map_rz(
         R_m=R_m,
         Z_m=Z_m,
         probability_map=probability_map,
-        output_path=output_dir / "pedestal_mode_probability.png"
+        output_path=output_dir / "l_mode_probability.png"
     )
 
     plot_sampled_birth_points(
         x_m=samples.x_m,
         z_m=samples.z_m,
-        output_path = output_dir / "pedestal_mode_sampled_birth_points.png"
+        output_path = output_dir / "l_mode_sampled_birth_points.png"
     )
 
 if __name__ == "__main__":
