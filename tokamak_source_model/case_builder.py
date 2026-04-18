@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from .parameters import FuelParameters, GeometryParameters, MeshParameters, ProfileParameters, SourceModelParameters
+from .energy_spectra import EnergySpectrumParameters
 
 def build_default_geometry() -> GeometryParameters:
     return GeometryParameters(
@@ -97,6 +98,7 @@ def build_l_mode_model(
         geometry=geometry,
         profile=build_l_mode_profile(),
         fuel=fuel,
+        energy_spectrum=EnergySpectrumParameters(model="muir_velocity_gaussian_dt"),
     )
 
 def build_generic_pedestal_model(
@@ -112,6 +114,7 @@ def build_generic_pedestal_model(
         geometry=geometry,
         profile=build_generic_pedestal_profile(geometry),
         fuel=fuel,
+        energy_spectrum=EnergySpectrumParameters(model="muir_velocity_gaussian_dt"),
     )
 
 def build_a_mode_paper_model(
@@ -127,4 +130,5 @@ def build_a_mode_paper_model(
         geometry=geometry,
         profile=build_a_mode_paper_profile(geometry),
         fuel=fuel,
+        energy_spectrum=EnergySpectrumParameters(model="muir_velocity_gaussian_dt"),
     )

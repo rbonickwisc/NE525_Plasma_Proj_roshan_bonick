@@ -39,7 +39,7 @@ def test_openmc_particle_summary_is_sane():
     summary = summarize_openmc_source_particles(particles)
 
     assert summary["n_particles"] == 500
-    assert np.isclose(summary["mean_energy_eV"], 14.1e6)
+    assert 1.39e7 < summary["mean_energy_eV"] < 1.43e7
     assert np.isclose(summary["mean_direction_norm"], 1.0)
     assert np.isclose(summary["weight_sum"], 1.0)
 

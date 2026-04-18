@@ -18,16 +18,12 @@ def test_isotropic_direction_vectors_are_unit_norm_with_default_rng():
     norms = np.sqrt(u_x**2 + u_y**2 + u_z**2)
     assert np.allclose(norms, 1.0)
 
-def test_birth_energies_are_monoenergetic_in_first_pass():
-    energies = sample_birth_energies_eV(1000)
-    assert np.allclose(energies, 14.1e6)
-
 def test_sample_birth_positions_returns_correct_length():
     model = build_l_mode_model()
     mesh = build_default_mesh(num_a=120, num_alpha=180)
     rng = np.random.default_rng(123)
 
-    x_m, y_m, z_m = sample_birth_positions(
+    _, _, x_m, y_m, z_m = sample_birth_positions(
         n_samples=2000,
         model=model,
         mesh=mesh,
@@ -43,7 +39,7 @@ def test_sample_birth_positions_are_finite():
     mesh = build_default_mesh(num_a=120, num_alpha=180)
     rng = np.random.default_rng(123)
 
-    x_m, y_m, z_m = sample_birth_positions(
+    _, _, x_m, y_m, z_m = sample_birth_positions(
         n_samples=2000,
         model=model,
         mesh=mesh,

@@ -7,6 +7,8 @@ import numpy as np
 from .geometry import surface_to_rz
 from .normalization import build_source_cell_probability_map
 from .parameters import MeshParameters, SourceModelParameters
+from .energy_spectra import sample_birth_energies_from_model_eV
+from .profiles import ion_temperature_profile_keV
 
 @dataclass
 class SourceSample:
@@ -30,7 +32,7 @@ def sample_birth_positions(
     model: SourceModelParameters,
     mesh: MeshParameters,
     rng: np.random.Generator | None = None,
-) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """
     Sample neutron birth positions in 3D cartesian coordinates
     
@@ -86,7 +88,7 @@ def sample_birth_positions(
     y_m = sampled_R_m * np.sin(phi_rad)
     z_m = sampled_Z_m.copy()
 
-    return x_m, y_m, z_m
+    return sampled_a_m, sampled_alpha_rad, x_m, y_m, z_m
 
 def sample_isotropic_directions(
     n_samples: int,
@@ -114,19 +116,21 @@ def sample_isotropic_directions(
     return u_x, u_y, u_z
 
 def sample_birth_energies_eV(
-        n_samples: int,
-        mean_energy_eV: float = 14.1e6,
-        rng: np.random.Generator | None = None,
+        a_m: np.ndarray,
+        model,
+        rng: np.random.Generator,
 ) -> np.ndarray:
     """
-    Sample neutron birth energies
-
-    First-pass: monoenergetic 14.1 MeV DT neutrons
+    Sample neutron birth energies using the model's configured spectrum
+    and local ion temperature at the sampled birth positions
     """
-    if n_samples <= 0:
-        raise ValueError("n_samples must be > 0")
-    
-    return np.full(n_samples, mean_energy_eV, dtype=float)
+    T_i_keV = ion_temperature_profile_keV(a_m, model.geometry, model.profile)
+
+    return sample_birth_energies_from_model_eV(
+        T_i_keV=T_i_keV,
+        spectrum=model.energy_spectrum,
+        rng=rng,
+    )
 
 def sample_source_particles(
         n_samples: int,
@@ -140,7 +144,7 @@ def sample_source_particles(
     if rng is None:
         rng = np.random.default_rng()
 
-    x_m, y_m, z_m = sample_birth_positions(
+    a_samples_m, alpha_samples_rad, x_m, y_m, z_m = sample_birth_positions(
         n_samples=n_samples,
         model=model,
         mesh=mesh,
@@ -153,7 +157,8 @@ def sample_source_particles(
     )
 
     energy_eV = sample_birth_energies_eV(
-        n_samples=n_samples,
+        a_m=a_samples_m,
+        model=model,
         rng=rng,
     )
 
