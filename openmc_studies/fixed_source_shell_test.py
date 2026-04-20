@@ -5,7 +5,7 @@ import numpy as np
 import openmc
 
 from tokamak_source_model.case_builder import build_default_mesh, build_l_mode_model
-from tokamak_source_model.openmc_adapter import build_openmc_independent_sources, sample_openmc_source_particles
+from tokamak_source_model.openmc_adapter import build_openmc_independent_sources
 
 # Basic spherical material shell around source w/ outer vacuum boundary
 
@@ -76,7 +76,7 @@ def main() -> None:
 
     heating_tally = openmc.Tally(name = "shell_heating")
     heating_tally.filters = [shell_filter, particle_filter]
-    heating_tally.scores = ["current"]
+    heating_tally.scores = ["heating"]
 
     leakage_tally = openmc.Tally(name="outer_surface_current")
     leakage_tally.filters = [outer_surface_filter, particle_filter]

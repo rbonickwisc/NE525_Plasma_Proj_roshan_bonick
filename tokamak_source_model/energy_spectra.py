@@ -18,7 +18,7 @@ class EnergySpectrumParameters:
     """
     Define parameters controlling neutron birth energy sampling
     """
-    model: str = "muir_velocity_gausian_dt"
+    model: str = "muir_velocity_gaussian_dt"
     clip_min_ev: float = 1.0e3
 
 def _validate_temperature_keV(T_i_keV: np.ndarray) -> np.ndarray:

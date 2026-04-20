@@ -5,7 +5,7 @@ import numpy as np
 import openmc
 
 from tokamak_source_model.case_builder import build_default_mesh, build_l_mode_model
-from tokamak_source_model.openmc_adapter import write_openmc_source_file
+from tokamak_source_model.openmc_adapter import write_openmc_source_file, build_openmc_independent_sources
 
 # Basic vacuum sphere geometry to test tokamak source OpenMC coupling
 
@@ -17,9 +17,8 @@ def main() -> None:
     mesh = build_default_mesh()
     rng = np.random.default_rng(42)
 
-    source_file = write_openmc_source_file(
-        path=output_dir / "tokamak_source.h5",
-        n_samples=5000,
+    sources = build_openmc_independent_sources(
+        n_samples=100,
         model=model,
         mesh=mesh,
         rng=rng,
@@ -44,7 +43,7 @@ def main() -> None:
     settings.run_mode = "fixed source"
     settings.batches = 10
     settings.particles = 1000
-    settings.source = openmc.FileSource(str(source_file))
+    settings.source = sources
 
     # ---------------------------------
     # Tallies
@@ -73,7 +72,6 @@ def main() -> None:
 
     print("Minimal vacuum sphere OpenMC fixed source run complete")
     print("-" * 25)
-    print(f"Source file = {source_file}")
     print(f"Statepoint file = {statepoint_path}")
 
     sp = openmc.StatePoint(statepoint_path)

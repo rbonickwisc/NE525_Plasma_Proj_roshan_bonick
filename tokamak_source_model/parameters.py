@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from typing import Literal
 import numpy as np
 
-from tokamak_source_model.energy_spectra import EnergySpectrumParameters
+from .energy_spectra import EnergySpectrumParameters
 
 ProfileMode = Literal["l_mode", "pedestal"]
 

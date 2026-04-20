@@ -36,6 +36,9 @@ def build_default_mesh(
         a_grid_min_m=a_grid_min_m,
     )
 
+def build_default_energy_spectrum() -> EnergySpectrumParameters:
+    return EnergySpectrumParameters(model="muir_velocity_gaussian_dt")
+
 def build_l_mode_profile() -> ProfileParameters:
     return ProfileParameters(
         mode="l_mode",
@@ -87,48 +90,57 @@ def build_a_mode_paper_profile(
 
 def build_l_mode_model(
     geometry: GeometryParameters | None = None,
-    fuel: FuelParameters | None = None
+    fuel: FuelParameters | None = None,
+    energy_spectrum: EnergySpectrumParameters | None = None,
 ) -> SourceModelParameters:
     if geometry is None:
         geometry = build_default_geometry()
     if fuel is None:
         fuel = build_default_fuel()
+    if energy_spectrum is None:
+        energy_spectrum = build_default_energy_spectrum()
 
     return SourceModelParameters(
         geometry=geometry,
         profile=build_l_mode_profile(),
         fuel=fuel,
-        energy_spectrum=EnergySpectrumParameters(model="muir_velocity_gaussian_dt"),
+        energy_spectrum=energy_spectrum,
     )
 
 def build_generic_pedestal_model(
     geometry: GeometryParameters | None = None,
-    fuel: FuelParameters | None = None
+    fuel: FuelParameters | None = None,
+    energy_spectrum: EnergySpectrumParameters | None = None,
 ) -> SourceModelParameters:
     if geometry is None:
         geometry = build_default_geometry()
     if fuel is None:
         fuel = build_default_fuel()
+    if energy_spectrum is None:
+        energy_spectrum = build_default_energy_spectrum()
 
     return SourceModelParameters(
         geometry=geometry,
         profile=build_generic_pedestal_profile(geometry),
         fuel=fuel,
-        energy_spectrum=EnergySpectrumParameters(model="muir_velocity_gaussian_dt"),
+        energy_spectrum=energy_spectrum,
     )
 
 def build_a_mode_paper_model(
     geometry: GeometryParameters | None = None,
-    fuel: FuelParameters | None = None
+    fuel: FuelParameters | None = None,
+    energy_spectrum: EnergySpectrumParameters | None = None,
 ) -> SourceModelParameters:
     if geometry is None:
         geometry = build_default_geometry()
     if fuel is None:
         fuel = build_default_fuel()
+    if energy_spectrum is None:
+        energy_spectrum = build_default_energy_spectrum()
 
     return SourceModelParameters(
         geometry=geometry,
         profile=build_a_mode_paper_profile(geometry),
         fuel=fuel,
-        energy_spectrum=EnergySpectrumParameters(model="muir_velocity_gaussian_dt"),
+        energy_spectrum=energy_spectrum,
     )

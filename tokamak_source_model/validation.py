@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import math
 
-from .parameters import FuelParameters, GeometryParameters, ProfileParameters, SourceModelParameters
+from .parameters import FuelParameters, GeometryParameters, ProfileParameters, SourceModelParameters, EnergySpectrumParameters
 
 def validate_geometry_parameters(geometry: GeometryParameters) -> None:
     if geometry.major_radius_m <= 0.0:
@@ -100,8 +100,14 @@ def validate_fuel_parameters(fuel: FuelParameters) -> None:
     ):
         raise ValueError("deuterium_fraction + tritium_fraction must equal 1")
 
+def validate_energy_spectrum_parameters(spectrum: EnergySpectrumParameters) -> None:
+    if spectrum.model not in {"muir_velocity_gaussian_dt", "monoenergetic_dt"}:
+        raise ValueError("Must use either muir_velocity or monoenergetic")
+    if spectrum.clip_min_ev <= 0.0:
+        raise ValueError("clip_min_ev must be greater than 0.0")
 
 def validate_source_model_parameters(model: SourceModelParameters) -> None:
     validate_geometry_parameters(model.geometry)
     validate_profile_parameters(model.profile, model.geometry)
     validate_fuel_parameters(model.fuel)
+    validate_source_model_parameters(model.energy_spectrum)

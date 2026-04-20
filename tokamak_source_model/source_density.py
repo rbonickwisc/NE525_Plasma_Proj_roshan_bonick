@@ -89,6 +89,8 @@ def source_density_profile_n_per_m3_per_s(
             # S = n_D*n_T*<sigma v> = 4*f_D*f_T*n_i^2*<sigma v>
         # and for f_D = f_T = 0.5 this reduces to:
             # S = n_i^2 * <sigma v>
+
+            
 def evaluate_profiles(
         a_m: np.ndarray,
         model: SourceModelParameters,

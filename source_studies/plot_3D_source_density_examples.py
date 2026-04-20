@@ -139,7 +139,7 @@ def save_log_plot(
     plt.close(fig)
 
 def main() -> None:
-    output_dir = Path("source_studies/output/energy_spectrum/3D_neutron_birth_clouds")
+    output_dir = Path("source_studies/output/energy_spectrum/source_density_3d")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     l_mode = build_l_mode_model()
