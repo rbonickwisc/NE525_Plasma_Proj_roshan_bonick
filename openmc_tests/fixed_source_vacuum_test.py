@@ -10,7 +10,7 @@ from tokamak_source_model.openmc_adapter import write_openmc_source_file, build_
 # Basic vacuum sphere geometry to test tokamak source OpenMC coupling
 
 def main() -> None:
-    output_dir = Path("openmc_studies/output/openmc_vacuum")
+    output_dir = Path("openmc_tests/output/openmc_vacuum")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     model = build_l_mode_model()

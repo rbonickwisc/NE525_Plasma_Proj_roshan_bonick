@@ -10,7 +10,7 @@ from tokamak_source_model.openmc_adapter import build_openmc_independent_sources
 # Basic spherical material shell around source w/ outer vacuum boundary
 
 def main() -> None:
-    output_dir = Path("openmc_studies/output/openmc_shell")
+    output_dir = Path("openmc_tests/output/openmc_shell")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     model = build_l_mode_model()
