@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from tokamak_source_model.reactivity import dt_reactivity_m3_per_s
+from tokamak_source_model.utils.reactivity import dt_reactivity_m3_per_s
 
 def test_dt_reactivity_is_positive_over_valid_range():
     Ti_keV = np.array([1.0, 5.0, 10.0, 15.0, 20.0, 50.0, 100.0])

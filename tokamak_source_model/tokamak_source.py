@@ -4,10 +4,10 @@ from typing import Any
 from dataclasses import fields, replace
 import numpy as np
 
-from .case_builder import build_default_mesh
-from .energy_spectra import EnergySpectrumParameters
-from .openmc_adapter import build_openmc_independent_sources
-from .parameters import FuelParameters, GeometryParameters, ProfileParameters, SourceModelParameters
+from .utils.case_builder import build_default_mesh
+from .utils.energy_spectra import EnergySpectrumParameters
+from .utils.openmc_adapter import build_openmc_independent_sources
+from .utils.parameters import FuelParameters, GeometryParameters, ProfileParameters, SourceModelParameters
 
 def tokamak_source(
     *,

@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import numpy as np
 
-from tokamak_source_model.normalization import build_source_probability_map, estimate_total_neutron_rate_n_per_s, estimate_total_plasma_volume_m3
-from tokamak_source_model.parameters import FuelParameters, GeometryParameters, MeshParameters, ProfileParameters, SourceModelParameters
+from tokamak_source_model.utils.normalization import build_source_probability_map, estimate_total_neutron_rate_n_per_s, estimate_total_plasma_volume_m3
+from tokamak_source_model.utils.parameters import FuelParameters, GeometryParameters, MeshParameters, ProfileParameters, SourceModelParameters
 
 def make_l_mode_model() -> SourceModelParameters:
     geometry = GeometryParameters(

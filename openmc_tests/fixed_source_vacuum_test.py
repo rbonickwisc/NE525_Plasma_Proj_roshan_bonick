@@ -4,8 +4,8 @@ from pathlib import Path
 import numpy as np
 import openmc
 
-from tokamak_source_model.case_builder import build_default_mesh, build_l_mode_model
-from tokamak_source_model.openmc_adapter import write_openmc_source_file, build_openmc_independent_sources
+from tokamak_source_model.utils.case_builder import build_default_mesh, build_l_mode_model
+from tokamak_source_model.utils.openmc_adapter import write_openmc_source_file, build_openmc_independent_sources
 
 # Basic vacuum sphere geometry to test tokamak source OpenMC coupling
 

@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import numpy as np
 
-from tokamak_source_model.normalization import build_source_probability_map, estimate_total_neutron_rate_n_per_s, estimate_total_plasma_volume_m3, build_source_cell_probability_map
-from tokamak_source_model.case_builder import build_default_mesh, build_l_mode_model
+from tokamak_source_model.utils.normalization import build_source_probability_map, estimate_total_neutron_rate_n_per_s, estimate_total_plasma_volume_m3, build_source_cell_probability_map
+from tokamak_source_model.utils.case_builder import build_default_mesh, build_l_mode_model
 
 def test_total_plasma_volume_is_positive():
     model = build_l_mode_model()

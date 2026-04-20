@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import LogNorm, Normalize
 
-from tokamak_source_model.case_builder import build_default_mesh, build_l_mode_model, build_a_mode_paper_model, build_generic_pedestal_model
-from tokamak_source_model.sampling import sample_birth_positions
-from tokamak_source_model.source_density import evaluate_profiles
+from tokamak_source_model.utils.case_builder import build_default_mesh, build_l_mode_model, build_a_mode_paper_model, build_generic_pedestal_model
+from tokamak_source_model.utils.sampling import sample_birth_positions
+from tokamak_source_model.utils.source_density import evaluate_profiles
 
 def set_axes_equal(ax) -> None:
     x_limits = ax.get_xlim3d()

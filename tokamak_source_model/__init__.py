@@ -2,4 +2,4 @@
 Tokamak DT source model package
 """
 
-from .api import tokamak_source
+from .tokamak_source import tokamak_source

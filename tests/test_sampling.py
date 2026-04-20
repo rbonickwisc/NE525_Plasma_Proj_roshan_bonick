@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import numpy as np
 
-from tokamak_source_model.case_builder import build_default_mesh, build_l_mode_model
-from tokamak_source_model.sampling import sample_source_particles, sample_birth_energies_eV, sample_birth_positions, sample_isotropic_directions
+from tokamak_source_model.utils.case_builder import build_default_mesh, build_l_mode_model
+from tokamak_source_model.utils.sampling import sample_source_particles, sample_birth_energies_eV, sample_birth_positions, sample_isotropic_directions
 
 def test_isotropic_direction_vectors_are_unit_norm():
     rng = np.random.default_rng(123)

@@ -1,7 +1,7 @@
 from __future__ import annotations
 import numpy as np
 
-from tokamak_source_model.energy_spectra import DT_E0_EV, EnergySpectrumParameters, dt_ballabio_fwhm_eV, fwhm_to_sigma_eV, sample_birth_energies_from_model_eV, dt_ballabio_mean_energy_eV, dt_bosch_hale_theta_keV
+from tokamak_source_model.utils.energy_spectra import DT_E0_EV, EnergySpectrumParameters, dt_ballabio_fwhm_eV, fwhm_to_sigma_eV, sample_birth_energies_from_model_eV, dt_ballabio_mean_energy_eV, dt_bosch_hale_theta_keV
 
 def test_dt_ballabio_fwhm_zero_at_zero_temperatures():
     T_i_keV = np.array([0.0])

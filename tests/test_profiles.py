@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import numpy as np
 
-from tokamak_source_model.case_builder import build_default_geometry, build_l_mode_profile
-from tokamak_source_model.profiles import ion_density_profile_m3, ion_temperature_profile_keV
+from tokamak_source_model.utils.case_builder import build_default_geometry, build_l_mode_profile
+from tokamak_source_model.utils.profiles import ion_density_profile_m3, ion_temperature_profile_keV
 
 def test_l_mode_profiles_match_center_values():
    geometry = build_default_geometry()

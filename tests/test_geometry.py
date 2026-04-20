@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import numpy as np
 
-from tokamak_source_model.geometry import surface_to_rz
-from tokamak_source_model.parameters import GeometryParameters
+from tokamak_source_model.utils.geometry import surface_to_rz
+from tokamak_source_model.utils.parameters import GeometryParameters
 
 def test_surface_to_rz_center_point():
     geometry = GeometryParameters(

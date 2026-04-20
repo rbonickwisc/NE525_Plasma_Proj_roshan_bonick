@@ -1,4 +1,4 @@
-from tokamak_source_model.energy_spectra import dt_ballabio_fwhm_eV, fwhm_to_sigma_eV
+from tokamak_source_model.utils.energy_spectra import dt_ballabio_fwhm_eV, fwhm_to_sigma_eV
 
 T_i_keV = 10
 

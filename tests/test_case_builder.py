@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from tokamak_source_model.case_builder import build_default_geometry, build_default_mesh, build_generic_pedestal_model, build_l_mode_model, build_a_mode_paper_model
+from tokamak_source_model.utils.case_builder import build_default_geometry, build_default_mesh, build_generic_pedestal_model, build_l_mode_model, build_a_mode_paper_model
 
 def test_default_geometry_is_physically_positive():
     geometry = build_default_geometry()

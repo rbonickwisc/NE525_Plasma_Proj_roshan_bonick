@@ -5,8 +5,8 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
-from tokamak_source_model.case_builder import build_default_mesh, build_l_mode_model
-from tokamak_source_model.sampling import sample_source_particles
+from tokamak_source_model.utils.case_builder import build_default_mesh, build_l_mode_model
+from tokamak_source_model.utils.sampling import sample_source_particles
 
 def main() -> None:
     output_dir = Path("source_studies/output/energy_spectrum")

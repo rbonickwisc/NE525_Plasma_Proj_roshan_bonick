@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import pytest
 
-from tokamak_source_model.case_builder import build_default_fuel, build_default_geometry, build_l_mode_profile
-from tokamak_source_model.parameters import ProfileParameters, SourceModelParameters
-from tokamak_source_model.validation import validate_source_model_parameters
+from tokamak_source_model.utils.case_builder import build_default_fuel, build_default_geometry, build_l_mode_profile
+from tokamak_source_model.utils.parameters import ProfileParameters, SourceModelParameters
+from tokamak_source_model.utils.validation import validate_source_model_parameters
 
 def test_validation_rejects_fuel_fraction_sum_not_equal():
     geometry = build_default_geometry()

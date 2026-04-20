@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import numpy as np
 
-from tokamak_source_model.parameters import GeometryParameters, ProfileParameters
-from tokamak_source_model.profiles import ion_density_profile_m3, ion_temperature_profile_keV
+from tokamak_source_model.utils.parameters import GeometryParameters, ProfileParameters
+from tokamak_source_model.utils.profiles import ion_density_profile_m3, ion_temperature_profile_keV
 
 
 def make_geometry() -> GeometryParameters:

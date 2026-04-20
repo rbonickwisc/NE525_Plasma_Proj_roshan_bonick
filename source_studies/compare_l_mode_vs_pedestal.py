@@ -4,11 +4,11 @@ from pathlib import Path
 
 import numpy as np
 
-from tokamak_source_model.case_builder import build_default_mesh, build_generic_pedestal_model, build_l_mode_model
-from tokamak_source_model.normalization import estimate_total_neutron_rate_n_per_s
-from tokamak_source_model.plotting import plot_profile_comparison_vs_a
-from tokamak_source_model.source_density import evaluate_profiles
-from tokamak_source_model.validation import validate_source_model_parameters
+from tokamak_source_model.utils.case_builder import build_default_mesh, build_generic_pedestal_model, build_l_mode_model
+from tokamak_source_model.utils.normalization import estimate_total_neutron_rate_n_per_s
+from tokamak_source_model.utils.plotting import plot_profile_comparison_vs_a
+from tokamak_source_model.utils.source_density import evaluate_profiles
+from tokamak_source_model.utils.validation import validate_source_model_parameters
 
 def main() -> None:
     output_dir = Path("source_studies/output/comparisons")

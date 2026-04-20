@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import numpy as np
 
-from tokamak_source_model.case_builder import build_default_fuel, build_l_mode_model
+from tokamak_source_model.utils.case_builder import build_default_fuel, build_l_mode_model
 
-from tokamak_source_model.source_density import (
+from tokamak_source_model.utils.source_density import (
     evaluate_profiles,
     source_density_profile_n_per_m3_per_s,
 )
