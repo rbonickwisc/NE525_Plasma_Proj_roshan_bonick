@@ -1,41 +1,39 @@
-# Tokamak DT Neutron Source Model
+# NE 525 Plasma Project - Roshan Bonick
 
-This repository contains a reusable Python package for building a tokamak D-T neutron source model based on magnetic surface geometry and prescribed plasma profiles
+## Run instructions
 
-Current codebase includes:
+Need to use a python environment that has:
 
-    -Tokamak magnetic surface geometry
-    -L-mode plasma profiles
-    -General pedestal-mode plasma profiles(pedestal-mode is used for non-l-mode cases such as A-mode or H-mode)
-    -Paper aligned A-mode profile case demo(uses pedestal-mode)
-    -DT reactivity using Sadler-Van Belle formula
-    -Local source density evaluation
-    -Source normalization and total neutron rate estimation
-    -Continuous in-cell source sampling
-    -Convergence and comparison studies
-    -Unit tests for main model components
+- Python 3.11
+- NumPy
+- OpenMC
+- Git
 
-========================================
-########## Setup(do these in bash) ##########
+Steps to setup and run repo
 
-1. git clone <https://github.com/rbonickwisc/NE525_Plasma_Proj_roshan_bonick.git>
+1. Clone repo 
 
-2. cd NE525_Plasma_Proj_roshan_bonick
+git clone https://github.com/rbonickwisc/NE525_Plasma_Proj_roshan_bonick.git
 
-3. pip install -e .
-4. pip install -r requirements.txt
+cd NE525_Plasma_Proj_roshan_bonick
 
-========================================
-######## How to run studies ########
-From the project root run:
+2. Create and activate Python environment
 
+conda create -n ne525-plasma python=3.11 -y
 
-python studies/l_mode_demo_case.py
-python studies/pedestal_mode_demo_case.py
-python studies/a_mode_paper_demo_case.py
-python studies/compare_l_mode_vs_pedestal.py
-python studies/compare_l_mode_vs_a_mode_paper.py
+conda activate ne525-plasma
 
-######## How to run tests ########
+3. Install package
 
-pytest tests/
+pip install -e .
+
+4. Install OpenMC
+
+conda install -c conda-forge openmc -y
+
+5. Make sure OpenMC cross section data is in directory
+
+-If you already have OpenMC cross sections
+    
+
+6.  Use tokamak source in OpenMC script

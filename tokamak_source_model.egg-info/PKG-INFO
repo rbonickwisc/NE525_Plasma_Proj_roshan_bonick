@@ -4,3 +4,43 @@ Version: 0.1.0
 Summary: Tokamak DT neutron source model for the NE525 project
 Requires-Python: >=3.10
 Description-Content-Type: text/markdown
+
+# NE 525 Plasma Project - Roshan Bonick
+
+## Run instructions
+
+Need to use a python environment that has:
+
+- Python 3.11
+- NumPy
+- OpenMC
+- Git
+
+Steps to setup and run repo
+
+1. Clone repo 
+
+git clone https://github.com/rbonickwisc/NE525_Plasma_Proj_roshan_bonick.git
+
+cd NE525_Plasma_Proj_roshan_bonick
+
+2. Create and activate Python environment
+
+conda create -n ne525-plasma python=3.11 -y
+
+conda activate ne525-plasma
+
+3. Install package
+
+pip install -e .
+
+4. Install OpenMC
+
+conda install -c conda-forge openmc -y
+
+5. Make sure OpenMC cross section data is in directory
+
+-If you already have OpenMC cross sections
+    
+
+6.  Use tokamak source in OpenMC script
