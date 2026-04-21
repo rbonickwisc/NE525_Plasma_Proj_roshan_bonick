@@ -66,7 +66,7 @@ def dt_bosch_hale_dtheta_dT(T_i_keV: np.ndarray) -> np.ndarray:
 
     #b(T) = 1 + T * (C3 + T*(C5 + T*C7))
     b = 1.0 + T_i_keV * (DT_C3 + T_i_keV * (DT_C5 + T_i_keV * DT_C7))
-    db = DT_C3 + 2.0 * DT_C5 + 3.0 * DT_C7 * T_i_keV**2
+    db = DT_C3 + 2.0 * DT_C5 * T_i_keV + 3.0 * DT_C7 * T_i_keV**2
 
     g = 1.0 - a / b
     dg = -(da * b - a * db) / (b**2)

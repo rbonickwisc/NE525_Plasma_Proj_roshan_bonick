@@ -2,7 +2,7 @@ from __future__ import annotations
 from pathlib import Path
 import numpy as np
 
-from tokamak_source_model.utils.case_builder import build_default_mesh, build_a_mode_paper_model
+from tokamak_source_model.utils.case_builder import build_default_mesh
 from tokamak_source_model.utils.geometry import make_a_alpha_grids
 from tokamak_source_model.utils.normalization import build_source_probability_map, estimate_total_neutron_rate_n_per_s, estimate_total_plasma_volume_m3
 from tokamak_source_model.utils.plotting import plot_magnetic_surfaces, plot_probability_map_rz, plot_profiles_vs_a, plot_sampled_birth_points, plot_source_quantities_vs_a
