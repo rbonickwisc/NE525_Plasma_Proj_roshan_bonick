@@ -36,7 +36,7 @@ def main() -> None:
     ax.hist(energies_MeV, bins=120)
     ax.set_xlabel("neutron energy [MeV]")
     ax.set_ylabel("Counts")
-    ax.set_title("Sampled DT neutron birth spectrum (Ballabio thermal model)")
+    ax.set_title("Sampled DT neutron birth spectrum (Ballabio thermal model)(L-mode)")
     fig.tight_layout()
     fig.savefig(output_dir / "l_mode_ballabio_spectrum.png", dpi=200)
 

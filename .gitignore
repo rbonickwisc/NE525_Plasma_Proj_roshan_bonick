@@ -9,6 +9,5 @@ build/
 dist/
 *.xml
 *.gitignore
-examples/output/
 *.h5
 *.out

@@ -143,12 +143,12 @@ def main() -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
 
     l_mode = build_l_mode_model()
-    pedestal_mode = build_generic_pedestal_model()
+    h_mode = build_generic_pedestal_model()
     a_mode = build_a_mode_paper_model()
 
     datasets = [
         prepare_plot_data(l_mode, "L-mode", seed=42),
-        prepare_plot_data(pedestal_mode, "Pedestal mode", seed=43),
+        prepare_plot_data(h_mode, "H-mode", seed=43),
         prepare_plot_data(a_mode, "A-mode", seed=44)
     ]
 
