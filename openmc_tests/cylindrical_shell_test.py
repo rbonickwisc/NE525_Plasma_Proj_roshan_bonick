@@ -120,7 +120,7 @@ def main() -> None:
     )
 
     omodel.export_to_xml()
-    statepoint_path = omodel.run(cwd=output_dir, threads = 1)
+    statepoint_path = omodel.run(cwd=output_dir)
 
     print("Basic cylindrical shell run complete")
     print("-" * 25)

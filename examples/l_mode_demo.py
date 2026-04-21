@@ -33,6 +33,13 @@ geometry = openmc.Geometry([cell])
 
 materials = openmc.Materials([])
 
+cell_filter = openmc.CellFilter(cell)
+particle_filter = openmc.ParticleFilter(["neutron"])
+flux_tally = openmc.Tally(name="shell_flux")
+flux_tally.filters = [cell_filter, particle_filter]
+flux_tally.scores = ["flux"]
+tallies = openmc.Tallies([flux_tally])
+
 settings = openmc.Settings()
 settings.run_mode = "fixed source"
 settings.batches = 10
@@ -43,6 +50,7 @@ model = openmc.Model(
     geometry=geometry,
     materials=materials,
     settings=settings,
+    tallies=tallies,
 )
 
 model.export_to_xml()

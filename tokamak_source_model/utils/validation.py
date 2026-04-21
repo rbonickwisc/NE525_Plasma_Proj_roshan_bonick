@@ -110,4 +110,4 @@ def validate_source_model_parameters(model: SourceModelParameters) -> None:
     validate_geometry_parameters(model.geometry)
     validate_profile_parameters(model.profile, model.geometry)
     validate_fuel_parameters(model.fuel)
-    validate_source_model_parameters(model.energy_spectrum)
+    validate_energy_spectrum_parameters(model.energy_spectrum)

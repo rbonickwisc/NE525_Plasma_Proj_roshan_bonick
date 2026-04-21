@@ -32,8 +32,35 @@ pip install -e .
 conda install -c conda-forge openmc -y
 
 5. Make sure OpenMC cross section data is in directory
-
--If you already have OpenMC cross sections
     
+ - Download the full ENDF/B-VIII.1 cross section library .tar.xz file and extract into cloned git
 
-6.  Use tokamak source in OpenMC script
+Link to cross-section library => https://openmc.org/data/#official-data-libraries
+
+Can use tar -xf endfb81.tar.xz to extract 
+or tar -xvf endfb81.tar.xz to see files as they are extracted
+
+ - Set ENDF cross section file to cross_sections.xml
+
+ Set the cross section file name to OPENMC_CROSS_SECTIONS with:
+    export OPENMC_CROSS_SECTIONS=(your path to the cross section file)/cross_sections.xml
+
+Most likely will be: 
+    export OPENMC_CROSS_SECTIONS=$PWD/endfb-viii.1-hdf5/cross_sections.xml
+If you extracted into cloned repo
+
+Can check the path using:
+    echo $OPENMC_CROSS_SECTIONS
+
+- Or if you already have OpenMC cross sections you can import them into the repo
+
+6. Run example scripts
+
+    - The examples/ folder contains basic OpenMC models for each tokamak mode utilizing 'tokamak_source'
+        -Running each demo will generate .xml files for an OpenMC run which can then be used by running 'openmc' in bash.
+
+    - The openmc_tests/ folder contains OpenMC models for multiple geometries with defined materials and tallies.
+        - Each script in this folder can be run by itself as openmc is called within the script.
+
+    - The source_studies/ folder contains multiple plotting scripts that showcase the tokamak_source model and different run modes.
+        - Each script in this folder can be ran from bash and plots will generate in source_studies/output/
