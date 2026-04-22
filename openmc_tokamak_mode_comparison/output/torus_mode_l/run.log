@@ -27,7 +27,7 @@
          License | https://docs.openmc.org/en/latest/license.html
          Version | 0.15.3
      Commit Hash | 27e38e894697bb32a1dac7848d2618818b6b8daf
-       Date/Time | 2026-04-22 10:59:36
+       Date/Time | 2026-04-22 13:34:14
    MPI Processes | 1
   OpenMP Threads | 32
 
@@ -98,18 +98,18 @@
 
  =======================>     TIMING STATISTICS     <=======================
 
- Total time for initialization     = 7.6410e-01 seconds
-   Reading cross sections          = 7.4163e-01 seconds
- Total time in simulation          = 5.8848e+01 seconds
-   Time in transport only          = 5.6983e+01 seconds
-   Time in active batches          = 5.8848e+01 seconds
-   Time accumulating tallies       = 1.1326e+00 seconds
-   Time writing statepoints        = 7.2764e-01 seconds
- Total time for finalization       = 3.2096e+01 seconds
- Total time elapsed                = 9.1994e+01 seconds
- Calculation Rate (active)         = 42482.6 particles/second
+ Total time for initialization     = 7.2895e-01 seconds
+   Reading cross sections          = 7.0898e-01 seconds
+ Total time in simulation          = 5.0255e+01 seconds
+   Time in transport only          = 4.8477e+01 seconds
+   Time in active batches          = 5.0255e+01 seconds
+   Time accumulating tallies       = 1.0024e+00 seconds
+   Time writing statepoints        = 7.6818e-01 seconds
+ Total time for finalization       = 2.7673e+01 seconds
+ Total time elapsed                = 7.8909e+01 seconds
+ Calculation Rate (active)         = 49746.3 particles/second
 
  ============================>     RESULTS     <============================
 
- Leakage Fraction            = 0.01180 +/- 0.00007
+ Leakage Fraction            = 0.01170 +/- 0.00006
 

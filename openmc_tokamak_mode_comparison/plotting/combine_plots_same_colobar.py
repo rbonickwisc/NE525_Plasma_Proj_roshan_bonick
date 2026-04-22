@@ -116,7 +116,7 @@ def find_latest_statepoint(run_dir: Path) -> Path:
 
 
 def load_mesh_data(mode: str, tally_name: str):
-    run_dir = Path(f"openmc_tokamak_mode_comparison/output/torus_mode_{mode}")
+    run_dir = Path(f"openmc_tokamak_mode_comparison/output/torus_mode_{mode.lower()}")
     statepoint_path = find_latest_statepoint(run_dir)
 
     with openmc.StatePoint(statepoint_path) as sp:

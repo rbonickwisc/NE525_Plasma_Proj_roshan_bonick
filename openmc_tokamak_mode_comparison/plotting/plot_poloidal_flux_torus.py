@@ -88,7 +88,7 @@ def main() -> None:
     parser.add_argument(
         "--mode",
         type=str,
-        default="L",
+        required=True,
         choices=["L", "H", "A"],
         help="Tokamak confinement mode output to plot",
     )
