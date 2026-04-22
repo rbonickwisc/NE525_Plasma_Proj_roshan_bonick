@@ -47,7 +47,7 @@ Set ENDF cross section file to cross_sections.xml
 
 - Most likely will be: 
     export OPENMC_CROSS_SECTIONS=$PWD/endfb-viii.1-hdf5/cross_sections.xml
-- If you extracted into cloned repo
+    If you extracted into cloned repo
 
 - Can check the path using:
     echo $OPENMC_CROSS_SECTIONS
@@ -56,11 +56,11 @@ Set ENDF cross section file to cross_sections.xml
 
 ### 6. Run example scripts
 
-    - The examples/ folder contains basic OpenMC models for each tokamak mode utilizing 'tokamak_source'
-        -Running each demo will generate .xml files for an OpenMC run which can then be used by running 'openmc' in bash.
+- The examples/ folder contains basic OpenMC models for each tokamak mode utilizing 'tokamak_source'
+    -Running each demo will generate .xml files for an OpenMC run which can then be used by running 'openmc' in bash.
 
-    - The openmc_tests/ folder contains OpenMC models for multiple geometries with defined materials and tallies.
-        - Each script in this folder can be run by itself as openmc is called within the script.
+- The openmc_tests/ folder contains OpenMC models for multiple geometries with defined materials and tallies.
+    - Each script in this folder can be run by itself as openmc is called within the script.
 
-    - The source_studies/ folder contains multiple plotting scripts that showcase the tokamak_source model and different run modes.
-        - Each script in this folder can be ran from bash and plots will generate in source_studies/output/
+- The source_studies/ folder contains multiple plotting scripts that showcase the tokamak_source model and different run modes.
+    - Each script in this folder can be ran from bash and plots will generate in source_studies/output/
