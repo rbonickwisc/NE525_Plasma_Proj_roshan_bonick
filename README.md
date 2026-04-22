@@ -57,7 +57,7 @@ Set ENDF cross section file to cross_sections.xml
 ### 6. Run example scripts
 
 - The examples/ folder contains basic OpenMC models for each tokamak mode utilizing 'tokamak_source'
-    -Running each demo will generate .xml files for an OpenMC run which can then be used by running 'openmc' in bash.
+    - Running each demo will generate .xml files for an OpenMC run which can then be used by running 'openmc' in bash.
 
 - The openmc_tests/ folder contains OpenMC models for multiple geometries with defined materials and tallies.
     - Each script in this folder can be run by itself as openmc is called within the script.
