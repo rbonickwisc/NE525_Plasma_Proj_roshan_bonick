@@ -13,23 +13,23 @@ Steps to setup and run repo
 
 ### 1. Clone repo 
 
-git clone https://github.com/rbonickwisc/NE525_Plasma_Proj_roshan_bonick.git
+- git clone https://github.com/rbonickwisc/NE525_Plasma_Proj_roshan_bonick.git
 
-cd NE525_Plasma_Proj_roshan_bonick
+- cd NE525_Plasma_Proj_roshan_bonick
 
 ### 2. Create and activate Python environment
 
-conda create -n ne525-plasma python=3.11 -y
+- conda create -n ne525-plasma python=3.11 -y
 
-conda activate ne525-plasma
+- conda activate ne525-plasma
 
 ### 3. Install package
 
-pip install -e .
+- pip install -e .
 
 ### 4. Install OpenMC
 
-conda install -c conda-forge openmc -y
+- conda install -c conda-forge openmc -y
 
 ### 5. Make sure OpenMC cross section data is in directory
     
@@ -40,7 +40,7 @@ Download the full ENDF/B-VIII.1 cross section library .tar.xz file and extract i
 - Can use tar -xf endfb81.tar.xz to extract 
 - or tar -xvf endfb81.tar.xz to see files as they are extracted
 
-Set ENDF cross section file to cross_sections.xml
+Set ENDF cross section file to cross_sections.xml:
 
 - Set the cross section file name to OPENMC_CROSS_SECTIONS with:
     export OPENMC_CROSS_SECTIONS=(your path to the cross section file)/cross_sections.xml
