@@ -82,7 +82,7 @@ def main() -> None:
 
     for data in datasets:
         axes[0, 0].plot(data["rho"], data["ion_density_m3"], label=data["label"])
-    axes[0, 0].set_xlabel(r"$\rho = a / a_{\mathrm{minor}}$")
+    axes[0, 0].set_xlabel(r"$\rho = a / a_{\mathrm{minor}}$ (normalized minor radius)")
     axes[0, 0].set_ylabel(r"$n_i$ [m$^{-3}$]")
     axes[0, 0].set_title("Ion density")
     axes[0, 0].grid(True, alpha=0.3)
@@ -90,7 +90,7 @@ def main() -> None:
 
     for data in datasets:
         axes[0, 1].plot(data["rho"], data["ion_temp_keV"], label=data["label"])
-    axes[0, 1].set_xlabel(r"$\rho = a / a_{\mathrm{minor}}$")
+    axes[0, 1].set_xlabel(r"$\rho = a / a_{\mathrm{minor}} (normalized minor radius)$")
     axes[0, 1].set_ylabel(r"$T_i$ [keV]")
     axes[0, 1].set_title("Ion temperature")
     axes[0, 1].grid(True, alpha=0.3)
@@ -98,7 +98,7 @@ def main() -> None:
 
     for data in datasets:
         axes[1, 0].plot(data["rho"], data["reactivity_m3_per_s"], label=data["label"])
-    axes[1, 0].set_xlabel(r"$\rho = a / a_{\mathrm{minor}}$")
+    axes[1, 0].set_xlabel(r"$\rho = a / a_{\mathrm{minor}}$ (normalized minor radius)")
     axes[1, 0].set_ylabel(r"$\langle \sigma v \rangle$ [m$^3$/s]")
     axes[1, 0].set_title("DT reactivity")
     axes[1, 0].grid(True, alpha=0.3)
@@ -110,13 +110,13 @@ def main() -> None:
             data["source_density_n_per_m3_per_s"],
             label=data["label"],
         )
-    axes[1, 1].set_xlabel(r"$\rho = a / a_{\mathrm{minor}}$")
+    axes[1, 1].set_xlabel(r"$\rho = a / a_{\mathrm{minor}}$ (normalized minor radius)")
     axes[1, 1].set_ylabel(r"$S$ [n/(m$^3$ s)]")
     axes[1, 1].set_title("Source density")
     axes[1, 1].grid(True, alpha=0.3)
     axes[1, 1].legend()
 
-    fig.suptitle("L-mode vs H-mode vs A-mode source comparison")
+    fig.suptitle("L-mode vs H-mode vs A-mode source comparison (moving from plasma center to plasma edge)")
     fig.tight_layout()
     fig.savefig(output_dir / "all_modes_comparison.png", dpi=220)
     plt.close(fig)

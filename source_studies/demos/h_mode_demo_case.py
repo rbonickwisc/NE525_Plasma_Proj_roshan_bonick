@@ -1,8 +1,9 @@
 from __future__ import annotations
 from pathlib import Path
-
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from tokamak_source_model.utils.case_builder import build_generic_pedestal_model
-from utils.demo_case_util import run_demo_case
+from source_studies.demo_case_util import run_demo_case
 
 def main() -> None:
     run_demo_case(

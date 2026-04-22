@@ -94,7 +94,7 @@ def main() -> None:
 
     axes[0, 0].plot(l_mode["rho"], l_mode["ion_density_m3"], label="L-mode")
     axes[0, 0].plot(a_mode["rho"], a_mode["ion_density_m3"], label="A-mode")
-    axes[0, 0].set_xlabel(r"$\rho = a / a_{\mathrm{minor}}$")
+    axes[0, 0].set_xlabel(r"$\rho = a / a_{\mathrm{minor}}$ (normalized minor radius)")
     axes[0, 0].set_ylabel(r"$n_i$ [m$^{-3}$]")
     axes[0, 0].set_title("Ion density")
     axes[0, 0].grid(True, alpha=0.3)
@@ -102,7 +102,7 @@ def main() -> None:
 
     axes[0, 1].plot(l_mode["rho"], l_mode["ion_temp_keV"], label="L-mode")
     axes[0, 1].plot(a_mode["rho"], a_mode["ion_temp_keV"], label="A-mode")
-    axes[0, 1].set_xlabel(r"$\rho = a / a_{\mathrm{minor}}$")
+    axes[0, 1].set_xlabel(r"$\rho = a / a_{\mathrm{minor}}$ (normalized minor radius)")
     axes[0, 1].set_ylabel(r"$T_i$ [keV]")
     axes[0, 1].set_title("Ion temperature")
     axes[0, 1].grid(True, alpha=0.3)
@@ -110,7 +110,7 @@ def main() -> None:
 
     axes[1, 0].plot(l_mode["rho"], l_mode["reactivity_m3_per_s"], label="L-mode")
     axes[1, 0].plot(a_mode["rho"], a_mode["reactivity_m3_per_s"], label="A-mode")
-    axes[1, 0].set_xlabel(r"$\rho = a / a_{\mathrm{minor}}$")
+    axes[1, 0].set_xlabel(r"$\rho = a / a_{\mathrm{minor}}$ (normalized minor radius)")
     axes[1, 0].set_ylabel(r"$\langle \sigma v \rangle$ [m$^3$/s]")
     axes[1, 0].set_title("DT reactivity")
     axes[1, 0].grid(True, alpha=0.3)
@@ -126,7 +126,7 @@ def main() -> None:
         a_mode["source_density_n_per_m3_per_s"],
         label="A-mode",
     )
-    axes[1, 1].set_xlabel(r"$\rho = a / a_{\mathrm{minor}}$")
+    axes[1, 1].set_xlabel(r"$\rho = a / a_{\mathrm{minor}}$ (normalized minor radius)")
     axes[1, 1].set_ylabel(r"$S$ [n/(m$^3$ s)]")
     axes[1, 1].set_title("Source density")
     axes[1, 1].grid(True, alpha=0.3)
