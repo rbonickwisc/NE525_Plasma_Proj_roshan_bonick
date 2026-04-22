@@ -11,50 +11,50 @@ Need to use a python environment that has:
 
 Steps to setup and run repo
 
-1. Clone repo 
+### 1. Clone repo 
 
 git clone https://github.com/rbonickwisc/NE525_Plasma_Proj_roshan_bonick.git
 
 cd NE525_Plasma_Proj_roshan_bonick
 
-2. Create and activate Python environment
+### 2. Create and activate Python environment
 
 conda create -n ne525-plasma python=3.11 -y
 
 conda activate ne525-plasma
 
-3. Install package
+### 3. Install package
 
 pip install -e .
 
-4. Install OpenMC
+### 4. Install OpenMC
 
 conda install -c conda-forge openmc -y
 
-5. Make sure OpenMC cross section data is in directory
+### 5. Make sure OpenMC cross section data is in directory
     
- - Download the full ENDF/B-VIII.1 cross section library .tar.xz file and extract into cloned git
+Download the full ENDF/B-VIII.1 cross section library .tar.xz file and extract into cloned git
 
-Link to cross-section library => https://openmc.org/data/#official-data-libraries
+- Link to cross-section library => https://openmc.org/data/#official-data-libraries
 
-Can use tar -xf endfb81.tar.xz to extract 
-or tar -xvf endfb81.tar.xz to see files as they are extracted
+- Can use tar -xf endfb81.tar.xz to extract 
+- or tar -xvf endfb81.tar.xz to see files as they are extracted
 
- - Set ENDF cross section file to cross_sections.xml
+Set ENDF cross section file to cross_sections.xml
 
- Set the cross section file name to OPENMC_CROSS_SECTIONS with:
+- Set the cross section file name to OPENMC_CROSS_SECTIONS with:
     export OPENMC_CROSS_SECTIONS=(your path to the cross section file)/cross_sections.xml
 
-Most likely will be: 
+- Most likely will be: 
     export OPENMC_CROSS_SECTIONS=$PWD/endfb-viii.1-hdf5/cross_sections.xml
-If you extracted into cloned repo
+- If you extracted into cloned repo
 
-Can check the path using:
+- Can check the path using:
     echo $OPENMC_CROSS_SECTIONS
 
 - Or if you already have OpenMC cross sections you can import them into the repo
 
-6. Run example scripts
+### 6. Run example scripts
 
     - The examples/ folder contains basic OpenMC models for each tokamak mode utilizing 'tokamak_source'
         -Running each demo will generate .xml files for an OpenMC run which can then be used by running 'openmc' in bash.
