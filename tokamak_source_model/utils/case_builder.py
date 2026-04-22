@@ -42,10 +42,10 @@ def build_default_energy_spectrum() -> EnergySpectrumParameters:
 def build_l_mode_profile() -> ProfileParameters:
     return ProfileParameters(
         mode="l_mode",
-        ion_density_center_m3=2.0e20,
-        ion_temp_center_keV=15.0,
+        ion_density_center_m3=8.0e19,
+        ion_temp_center_keV=12.0,
         alpha_n=0.5,
-        alpha_T=1.0,
+        alpha_T=1.5,
     )
 
 def build_generic_pedestal_profile(
@@ -56,16 +56,16 @@ def build_generic_pedestal_profile(
 
     return ProfileParameters(
         mode="pedestal",
-        ion_density_center_m3=2.0e20,
-        ion_temp_center_keV=20.0,
+        ion_density_center_m3=9.5e19,
+        ion_temp_center_keV=22.0,
         alpha_n=1.0,
-        alpha_T=4.0,
+        alpha_T=4.5,
         pedestal_radius_m=0.8 * geometry.minor_radius_m,
-        ion_density_pedestal_m3=1.8e20,
+        ion_density_pedestal_m3=8.5e19,
         ion_density_separatrix_m3=3.0e19,
-        ion_temp_pedestal_keV=4.0,
+        ion_temp_pedestal_keV=3.5,
         ion_temp_separatrix_keV=0.1,
-        beta_T=6.0,
+        beta_T=5.0,
     )
 
 def build_a_mode_paper_profile(

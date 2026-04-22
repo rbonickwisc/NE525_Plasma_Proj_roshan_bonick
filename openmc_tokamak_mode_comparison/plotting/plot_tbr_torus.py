@@ -9,7 +9,11 @@ import openmc
 
 TALLY_NAME = "Tritium production x-y-z map (FLiBe only)"
 
-SOURCE_N_PER_S = 1.0e19
+MODE_SOURCE_RATE_N_PER_S = {
+    "L": 3.150941e18,
+    "H": 1.895748e19,
+    "A": 5.326079e19,
+}
 
 #torus geometry [cm]
 R0 = 200.0
@@ -90,6 +94,7 @@ def main() -> None:
     args = parser.parse_args()
 
     mode = args.mode.upper()
+    source_n_per_s = MODE_SOURCE_RATE_N_PER_S[mode]
     run_dir = Path(f"openmc_tokamak_mode_comparison/output/torus_mode_{mode.lower()}")
     plot_dir = Path(f"openmc_tokamak_mode_comparison/plotting/output/torus_mode_{mode.lower()}")
     plot_dir.mkdir(parents=True, exist_ok=True)
@@ -123,7 +128,7 @@ def main() -> None:
         mean_1d = np.squeeze(tally.mean).ravel()
         mean_3d = reshape_mesh(mean_1d, nx, ny, nz)
 
-    tritons_per_s = mean_3d * SOURCE_N_PER_S
+    tritons_per_s = mean_3d * source_n_per_s
     grams_per_yr = (tritons_per_s * SEC_PER_YR / N_A) * M_T_G_PER_MOL
     rate_xyz = grams_per_yr / voxel_vol_m3
 
@@ -175,7 +180,7 @@ def main() -> None:
     ax.set_ylabel("z [cm]")
     ax.set_title(
         f"Tritium breeding rate (poloidal x-z slice) ({mode}-mode), "
-        f"S = {SOURCE_N_PER_S:.1e} n/s"
+        f"S = {source_n_per_s:.1e} n/s"
     )
 
     xlim = R0 + flibe_r + MARGIN_CM

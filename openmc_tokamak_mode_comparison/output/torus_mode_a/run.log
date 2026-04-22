@@ -27,7 +27,7 @@
          License | https://docs.openmc.org/en/latest/license.html
          Version | 0.15.3
      Commit Hash | 27e38e894697bb32a1dac7848d2618818b6b8daf
-       Date/Time | 2026-04-22 11:04:09
+       Date/Time | 2026-04-22 13:29:23
    MPI Processes | 1
   OpenMP Threads | 32
 
@@ -98,16 +98,16 @@
 
  =======================>     TIMING STATISTICS     <=======================
 
- Total time for initialization     = 8.0424e-01 seconds
-   Reading cross sections          = 7.8292e-01 seconds
- Total time in simulation          = 6.0940e+01 seconds
-   Time in transport only          = 5.8829e+01 seconds
-   Time in active batches          = 6.0940e+01 seconds
-   Time accumulating tallies       = 1.0638e+00 seconds
-   Time writing statepoints        = 1.0429e+00 seconds
- Total time for finalization       = 2.8540e+01 seconds
- Total time elapsed                = 9.0558e+01 seconds
- Calculation Rate (active)         = 41023.7 particles/second
+ Total time for initialization     = 1.7861e+00 seconds
+   Reading cross sections          = 1.7545e+00 seconds
+ Total time in simulation          = 5.5922e+01 seconds
+   Time in transport only          = 5.3958e+01 seconds
+   Time in active batches          = 5.5922e+01 seconds
+   Time accumulating tallies       = 9.6596e-01 seconds
+   Time writing statepoints        = 9.9344e-01 seconds
+ Total time for finalization       = 3.5018e+01 seconds
+ Total time elapsed                = 9.3123e+01 seconds
+ Calculation Rate (active)         = 44704.9 particles/second
 
  ============================>     RESULTS     <============================
 

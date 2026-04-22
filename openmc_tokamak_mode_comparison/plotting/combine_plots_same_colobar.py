@@ -8,7 +8,11 @@ from matplotlib.colors import LogNorm
 from matplotlib.ticker import LogFormatterMathtext, LogLocator
 
 
-SOURCE_N_PER_S = 1.0e19
+MODE_SOURCE_RATE_N_PER_S = {
+    "L": 3.150941e18,
+    "H": 1.895748e19,
+    "A": 5.326079e19,
+}
 
 # torus geometry [cm]
 R0 = 200.0
@@ -149,8 +153,8 @@ def build_topdown_flux(mode: str):
     )
 
     voxel_vol_cm3 = dx * dy * dz
-    flux_cm2_s = (mean_3d / voxel_vol_cm3) * SOURCE_N_PER_S
-
+    source_n_per_s = MODE_SOURCE_RATE_N_PER_S[mode.upper()]
+    flux_cm2_s = (mean_3d / voxel_vol_cm3) * source_n_per_s
     nz = mean_3d.shape[2]
     k = nz // 2
     A = flux_cm2_s[:, :, k]
@@ -183,8 +187,8 @@ def build_poloidal_flux(mode: str):
     )
 
     voxel_vol_cm3 = dx * dy * dz
-    flux_cm2_s = (mean_3d / voxel_vol_cm3) * SOURCE_N_PER_S
-
+    source_n_per_s = MODE_SOURCE_RATE_N_PER_S[mode.upper()]
+    flux_cm2_s = (mean_3d / voxel_vol_cm3) * source_n_per_s
     ny = mean_3d.shape[1]
     j0 = ny // 2
     jlo = max(0, j0 - Y_HALF)
@@ -223,7 +227,8 @@ def build_tritium(mode: str):
     voxel_vol_cm3 = dx * dy * dz
     voxel_vol_m3 = voxel_vol_cm3 * 1e-6
 
-    tritons_per_s = mean_3d * SOURCE_N_PER_S
+    source_n_per_s = MODE_SOURCE_RATE_N_PER_S[mode.upper()]
+    tritons_per_s = mean_3d * source_n_per_s    
     grams_per_yr = (tritons_per_s * SEC_PER_YR / N_A) * M_T_G_PER_MOL
     rate_xyz = grams_per_yr / voxel_vol_m3
 
@@ -403,9 +408,8 @@ def main():
     args = parser.parse_args()
 
     cfg = PLOT_CONFIG[args.plot_type]
-    modes = ["l", "h", "a"]
+    modes = ["L", "H", "A"]
     mode_labels = ["L-mode", "H-mode", "A-mode"]
-
     data_list = [get_plot_data(args.plot_type, mode) for mode in modes]
     vmin, vmax = compute_shared_limits(data_list, cfg["plow"], cfg["phigh"])
     norm = LogNorm(vmin=vmin, vmax=vmax)

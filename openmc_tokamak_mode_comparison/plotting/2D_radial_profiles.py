@@ -5,7 +5,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import openmc
 
-SOURCE_N_PER_S = 1.0e19
+MODE_SOURCE_RATE_N_PER_S = {
+    "L": 3.150941e18,
+    "H": 1.895748e19,
+    "A": 5.326079e19,
+}
 R0 = 200.0
 plasma_r = 20.0
 first_wall_r = 50.0
@@ -81,20 +85,20 @@ def load_mesh_tally(mode: str, tally_name: str):
     return mean_3d, x_edges, y_edges, z_edges, dx, dy, dz
 
 
-def build_physical_field(plot_type: str, mean_3d: np.ndarray, dx: float, dy: float, dz: float):
+def build_physical_field(plot_type: str, mean_3d: np.ndarray, dx: float, dy: float, dz: float, source_n_per_s: float):
     voxel_vol_cm3 = dx * dy * dz
-
+    
     if plot_type == "fast_flux":
         # openmc flux tally gives a tracklegnth quantity per souce particle
         # need to divide by voxel volume and multiply by physical source strenght
-        field = (mean_3d / voxel_vol_cm3) * SOURCE_N_PER_S
+        field = (mean_3d / voxel_vol_cm3) * source_n_per_s
         return field
 
     if plot_type == "tritium":
         # tally gives tritium producing reactions per source particle per voxel
         # convert to tritons/s then g/yr and divide by voxel volume
         voxel_vol_m3 = voxel_vol_cm3 * 1.0e-6
-        tritons_per_s = mean_3d * SOURCE_N_PER_S
+        tritons_per_s = mean_3d * source_n_per_s
         grams_per_yr = (tritons_per_s * SEC_PER_YR / N_A) * M_T_G_PER_MOL
         field = grams_per_yr / voxel_vol_m3
         return field
@@ -107,8 +111,8 @@ def build_midplane_radial_profile(plot_type: str, mode: str, n_bins: int = N_BIN
         mode=mode,
         tally_name=PLOT_CONFIG[plot_type]["tally_name"],
     )
-
-    field_3d = build_physical_field(plot_type, mean_3d, dx, dy, dz)
+    source_n_per_s = MODE_SOURCE_RATE_N_PER_S[mode]
+    field_3d = build_physical_field(plot_type, mean_3d, dx, dy, dz, source_n_per_s)
 
     ny = field_3d.shape[1]
     j0 = ny // 2
@@ -173,7 +177,6 @@ def main():
     args = parser.parse_args()
 
     cfg = PLOT_CONFIG[args.plot_type]
-
     output_dir = Path("openmc_tokamak_mode_comparison/plotting/output/2D_combined")
     output_dir.mkdir(parents=True, exist_ok=True)
     outpath = output_dir / cfg["outfile"]
@@ -184,7 +187,7 @@ def main():
         r, mean_prof, std_prof = build_midplane_radial_profile(args.plot_type, mode)
 
         ax.plot(r, mean_prof, linewidth=2.0, label=f"{mode}-mode")
-
+    
     add_region_lines(ax)
 
     ax.set_xlim(0.0, flibe_r)
