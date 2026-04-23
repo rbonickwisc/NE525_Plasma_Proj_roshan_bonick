@@ -191,6 +191,12 @@ def sample_muir_velocity_gaussian_dt_energies_eV(
     rng: np.random.Generator,
     clip_min_ev: float = 1.0e3,
 ) -> np.ndarray:
+    """
+    Sample energies from a normal distribution with mean mu_eV and standard dev sigma_eV
+    Gives distr:
+
+        p(E_n, T_i) = (1/(sqrt(2pi)*σ_E)) * exp(-((E_n - <E_n>)^2 / (2σ_E)^2))
+    """
     T_i_keV = _validate_temperature_keV(T_i_keV)
 
     mu_eV = dt_ballabio_mean_energy_eV(T_i_keV)
