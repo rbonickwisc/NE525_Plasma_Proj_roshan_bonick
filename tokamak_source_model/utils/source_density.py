@@ -21,6 +21,11 @@ def deuterium_density_profile_m3(
     This guarantees that for f_D = f_T = 0.5:
         S = n_D * n_T * <sigma v> = n_i^2 * <sigma v>
     which matches Eq. (1) in Fausser paper
+
+    Say for f_D = 0.7, f_T = 0.3, then:
+        n_D = 2 * 0.7 * n_i
+        n_T = 2 * 0.3 * n_i
+            n_D * n_T = 0.84 * n_i^2
     """
     return 2.0 * fuel.deuterium_fraction * ion_density_m3
 

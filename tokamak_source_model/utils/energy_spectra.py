@@ -42,10 +42,10 @@ def _validate_temperature_keV(T_i_keV: np.ndarray) -> np.ndarray:
 
 def dt_bosch_hale_theta_keV(T_i_keV: np.ndarray) -> np.ndarray:
     """
-    Bosch-Hale effective temp parameter B(T) for DT
+    Bosch-Hale effective temp parameter theta(T) for DT
 
-        B = T / (1 - T*(C2 + T*(C4 + T*C6)) / (1 + T*(C3 + T*(C5 + T*C7))))
-    T and B in keV
+        theta = T / (1 - T*(C2 + T*(C4 + T*C6)) / (1 + T*(C3 + T*(C5 + T*C7))))
+    T and theta in keV
     """
     T_i_keV = _validate_temperature_keV(T_i_keV)
 
@@ -56,7 +56,7 @@ def dt_bosch_hale_theta_keV(T_i_keV: np.ndarray) -> np.ndarray:
 
 def dt_bosch_hale_dtheta_dT(T_i_keV: np.ndarray) -> np.ndarray:
     """
-    Derivative dtheta/dT for DT Bosch-Hale B(T)
+    Derivative dtheta/dT for DT Bosch-Hale theta(T)
     """
     T_i_keV = _validate_temperature_keV(T_i_keV)
 
