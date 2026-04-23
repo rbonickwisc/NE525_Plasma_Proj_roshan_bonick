@@ -9,7 +9,18 @@ DT_E0_EV = 14.021e6
 # DT width coefficient from Ballabio 1998
 DT_FWHM_COEFF_KEV_SQRT_KEV = 177.259
 
-# Bosch-Hale 1992 DT reactivity-fit coefficients
+# DT width-correction coefficients from Ballabio 1998 for T(d,n)alpha
+    # 0 < Ti < 40 keV
+DT_DELTA_OMEGA_A1 = 5.1068e-4
+DT_DELTA_OMEGA_A2 = 7.6223e-3
+DT_DELTA_OMEGA_A3 = 1.78
+DT_DELTA_OMEGA_A4 = 8.7691e-5
+
+    # 30 < Ti < 100 keV
+DT_DELTA_OMEGA_A5 = 2.0199e-3
+DT_DELTA_OMEGA_A6 = 5.9501e-5
+
+# Bosch-Hale 1998 DT reactivity-fit coefficients
 DT_BG = 34.3827
 DT_C1 = 1.17302e-9
 DT_C2 = 1.51361e-2
@@ -88,7 +99,6 @@ def dt_ballabio_mean_K_keV(T_i_keV: np.ndarray) -> np.ndarray:
     T_i_keV = _validate_temperature_keV(T_i_keV)
 
     mean_K_keV = np.zeros_like(T_i_keV, dtype=float)
-
     positive = T_i_keV > 0.0
     if not np.any(positive):
         return mean_K_keV
@@ -138,14 +148,39 @@ def dt_ballabio_mean_energy_eV(T_i_keV: np.ndarray) -> np.ndarray:
 
     return 1.0e3 * mean_energy_keV
 
+def dt_ballabio_delta_omega(T_i_keV: np.ndarray) -> np.ndarray:
+    """
+    Ballabio 1998 width correction for DT neutrons:
+        W_1/2 = omega0 * (1 + δω(T)) * sqrt(T)
+    """
+    T_i_keV = _validate_temperature_keV(T_i_keV)
+
+    out = np.zeros_like(T_i_keV, dtype=float)
+    positive = T_i_keV > 0.0
+    if not np.any(positive):
+        return out
+    
+    T_pos = T_i_keV[positive]
+
+    low = (
+        (DT_DELTA_OMEGA_A1 / (1.0 + DT_DELTA_OMEGA_A2 * T_pos**DT_DELTA_OMEGA_A3))
+        * T_pos**(2.0/3.0)
+        + DT_DELTA_OMEGA_A4 * T_pos
+    )
+    high = DT_DELTA_OMEGA_A5 + DT_DELTA_OMEGA_A6 * T_pos
+
+    out[positive] = np.where(T_pos < 40.0, low, high)
+    return out
+
 def dt_ballabio_fwhm_eV(T_i_keV: np.ndarray) -> np.ndarray:
     """
     DT neutron FWHM from Ballabio 1998
 
-        W_1/2 = omega0 * sqrt(T_i)
+        W_1/2 = omega0 * (1 + δω(T_i)) * sqrt(T_i)
     """
     T_i_keV = _validate_temperature_keV(T_i_keV)
-    return 1.0e3 * DT_FWHM_COEFF_KEV_SQRT_KEV * np.sqrt(T_i_keV)
+    delta_omega = dt_ballabio_delta_omega(T_i_keV)
+    return 1.0e3 * DT_FWHM_COEFF_KEV_SQRT_KEV * (1.0 + delta_omega) * np.sqrt(T_i_keV)
 
 def fwhm_to_sigma_eV(fwhm_eV: np.ndarray) -> np.ndarray:
     fwhm_eV = np.asarray(fwhm_eV, dtype=float)
@@ -173,6 +208,7 @@ def sample_birth_energies_from_model_eV(
 
     if spectrum.model == "monoenergetic_dt":
         return np.full_like(T_i_keV, DT_E0_EV, dtype=float)
+    
     if spectrum.model == "muir_velocity_gaussian_dt":
         return sample_muir_velocity_gaussian_dt_energies_eV(
             T_i_keV=T_i_keV,
