@@ -19,10 +19,10 @@ def build_materials() -> openmc.Materials:
 
     flibe = openmc.Material(name="FLiBe")
     flibe.set_density("g/cm3", 1.95)
-    flibe.add_nuclide("Li6", 0.075)
-    flibe.add_nuclide("Li7", 0.925)
+    flibe.add_nuclide("Li6", 2.0 * 0.075)
+    flibe.add_nuclide("Li7", 2.0 * 0.925)
     flibe.add_element("Be", 1.0)
-    flibe.add_element("F", 2.0)
+    flibe.add_element("F", 4.0)
     mats.append(flibe)
 
     return mats
