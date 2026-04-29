@@ -291,9 +291,9 @@ def main() -> None:
 
     model = build_model(
         mode=mode,
-        n_samples=2000,
-        particles=100000,
-        batches=25,
+        n_samples=5000,
+        particles=200000,
+        batches=50,
         seed=seed,
     )
 

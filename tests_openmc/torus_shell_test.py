@@ -40,25 +40,18 @@ def main() -> None:
 
     print("OpenMC toroidal shell test")
     print("-" * 25)
-    #Check containment relative to inner torus
     inside_inner = (
         (particles.z_cm / inner_minor_vertical) ** 2 + ((rho_cm - major_radius_cm) / inner_minor_radial) ** 2
         <= 1.0
     )
     print(f"Number of sampled particles outside inner torus = {np.count_nonzero(~inside_inner)}")
 
-    # ---------------------------------
-    # Material
-    # ---------------------------------
     iron = openmc.Material(name="iron")
     iron.set_density("g/cm3", 7.87)
     iron.add_element("Fe", 1.0)
 
     materials = openmc.Materials([iron])
 
-    # ---------------------------------
-    # Geometry
-    # ---------------------------------
     inner_torus = openmc.ZTorus(
         x0=0.0,
         y0=0.0,
@@ -90,9 +83,7 @@ def main() -> None:
     universe = openmc.Universe(cells = [inner_vacuum_cell, shell_cell])
     geometry = openmc.Geometry(universe)
 
-    # ---------------------------------
-    # Settings 
-    # ---------------------------------
+
     settings = openmc.Settings()
     settings.run_mode = "fixed source"
     settings.batches = 15
@@ -106,9 +97,6 @@ def main() -> None:
     )
     settings.source = sources
 
-    # ---------------------------------
-    # Tallies
-    # ---------------------------------
     shell_filter = openmc.CellFilter(shell_cell)
     particle_filter = openmc.ParticleFilter(["neutron"])
     outer_torus_filter = openmc.SurfaceFilter(outer_torus)
@@ -123,9 +111,6 @@ def main() -> None:
 
     tallies = openmc.Tallies([flux_tally, leakage_tally])
 
-    # ---------------------------------
-    # Model and run
-    # ---------------------------------
     omodel = openmc.Model(
         geometry=geometry,
         materials=materials,
@@ -136,7 +121,7 @@ def main() -> None:
     omodel.export_to_xml()
     statepoint_path = omodel.run(cwd=output_dir)
 
-    print("\nBasic toroidal shell run complete")
+    print("\nBasic torus shell run complete")
     print("-" * 25)
     print(f"Statepoint file = {statepoint_path}")
 

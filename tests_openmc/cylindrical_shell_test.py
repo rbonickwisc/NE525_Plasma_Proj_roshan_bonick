@@ -37,18 +37,13 @@ def main() -> None:
     print("OpenMC cylindrical shell test")
     print("-" * 25)
     
-    # ---------------------------------
-    # Material
-    # ---------------------------------
+
     carbon = openmc.Material(name="carbon")
     carbon.set_density("g/cm3", 1.8)
     carbon.add_element("C", 1.0)
 
     materials = openmc.Materials([carbon])
 
-    # ---------------------------------
-    # Geometry
-    # ---------------------------------
     inner_cyl = openmc.ZCylinder(r=inner_radius_cm)
     outer_cyl = openmc.ZCylinder(r=outer_radius_cm, boundary_type="vacuum")
 
@@ -75,9 +70,6 @@ def main() -> None:
     universe = openmc.Universe(cells = [inner_vacuum_cell, shell_cell])
     geometry = openmc.Geometry(universe)
 
-    # ---------------------------------
-    # Settings 
-    # ---------------------------------
     settings = openmc.Settings()
     settings.run_mode = "fixed source"
     settings.batches = 15
@@ -91,9 +83,6 @@ def main() -> None:
     )
     settings.source = sources
 
-    # ---------------------------------
-    # Tallies
-    # ---------------------------------
     shell_filter = openmc.CellFilter(shell_cell)
     particle_filter = openmc.ParticleFilter(["neutron"])
 
@@ -109,9 +98,6 @@ def main() -> None:
 
     tallies = openmc.Tallies([flux_tally, leakage_tally])
 
-    # ---------------------------------
-    # Model and run
-    # ---------------------------------
     omodel = openmc.Model(
         geometry=geometry,
         materials=materials,

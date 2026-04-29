@@ -7,8 +7,6 @@ import openmc
 from tokamak_source_model.utils.case_builder import build_default_mesh, build_l_mode_model
 from tokamak_source_model.utils.openmc_adapter import build_openmc_independent_sources
 
-# Basic vacuum sphere geometry to test tokamak source OpenMC coupling
-
 def main() -> None:
     output_dir = Path("openmc_tests/output/openmc_vacuum")
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -24,30 +22,20 @@ def main() -> None:
         rng=rng,
     )
 
-    # ---------------------------------
-    # Geometry
-    # ---------------------------------
     outer_sphere = openmc.Sphere(r=400.0, boundary_type="vacuum")
 
     cell = openmc.Cell(region = -outer_sphere)
     universe = openmc.Universe(cells=[cell])
     geometry = openmc.Geometry(universe)
 
-    # No material needed for basic vacuum only geometry test
     materials = openmc.Materials([])
 
-    # ---------------------------------
-    # Settings
-    # ---------------------------------
     settings = openmc.Settings()
     settings.run_mode = "fixed source"
     settings.batches = 10
     settings.particles = 1000
     settings.source = sources
 
-    # ---------------------------------
-    # Tallies
-    # ---------------------------------
     surface_filter = openmc.SurfaceFilter(outer_sphere)
     particle_filter = openmc.ParticleFilter(["neutron"])
 
@@ -57,9 +45,6 @@ def main() -> None:
 
     tallies = openmc.Tallies([current_tally])
 
-    # ---------------------------------
-    # Model and run
-    # ---------------------------------
     omodel = openmc.Model(
         geometry=geometry,
         materials=materials,
@@ -70,7 +55,7 @@ def main() -> None:
     omodel.export_to_xml()
     statepoint_path = omodel.run(cwd=output_dir)
 
-    print("Minimal vacuum sphere OpenMC fixed source run complete")
+    print("vacuum sphere OpenMC fixed source run complete")
     print("-" * 25)
     print(f"Statepoint file = {statepoint_path}")
 

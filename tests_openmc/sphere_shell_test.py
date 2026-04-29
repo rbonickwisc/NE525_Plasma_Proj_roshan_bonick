@@ -7,8 +7,6 @@ import openmc
 from tokamak_source_model.utils.case_builder import build_default_mesh, build_l_mode_model
 from tokamak_source_model.utils.openmc_adapter import build_openmc_independent_sources
 
-# Basic spherical material shell around source w/ outer vacuum boundary
-
 def main() -> None:
     output_dir = Path("openmc_tests/output/openmc_shell")
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -17,18 +15,13 @@ def main() -> None:
     mesh = build_default_mesh()
     rng = np.random.default_rng(42)
 
-    # ---------------------------------
-    # Materials
-    # ---------------------------------
+
     iron = openmc.Material(name="iron")
     iron.set_density("g/cm3", 7.87)
     iron.add_element("Fe", 1.0)
 
     materials = openmc.Materials([iron])
 
-    # ---------------------------------
-    # Geometry
-    # ---------------------------------
     inner_sphere = openmc.Sphere(r=260.0)
     outer_sphere = openmc.Sphere(r=400.0, boundary_type="vacuum")
 
@@ -46,9 +39,6 @@ def main() -> None:
     universe = openmc.Universe(cells=[inner_vacuum_cell, shell_cell])
     geometry = openmc.Geometry(universe)
 
-    # ---------------------------------
-    # Settings
-    # ---------------------------------
     settings = openmc.Settings()
     settings.run_mode = "fixed source"
     settings.batches = 10
@@ -61,10 +51,6 @@ def main() -> None:
         rng=np.random.default_rng(42)
     )
     settings.source = sources
-
-    # ---------------------------------
-    # Tallies
-    # ---------------------------------
 
     shell_filter = openmc.CellFilter(shell_cell)
     outer_surface_filter = openmc.SurfaceFilter(outer_sphere)
@@ -84,9 +70,6 @@ def main() -> None:
 
     tallies = openmc.Tallies([flux_tally, heating_tally, leakage_tally])
 
-    # ---------------------------------
-    # Model and run
-    # ---------------------------------
     omodel = openmc.Model(
         geometry=geometry,
         materials=materials,
@@ -97,7 +80,7 @@ def main() -> None:
     omodel.export_to_xml()
     statepoint_path = omodel.run(cwd=output_dir)
 
-    print("Basic spherical iron shell OpenMC fixed source run complete")
+    print("sphere test OpenMC fixed source run complete")
     print("-" * 25)
     print(f"Statepoint file = {statepoint_path}")
 

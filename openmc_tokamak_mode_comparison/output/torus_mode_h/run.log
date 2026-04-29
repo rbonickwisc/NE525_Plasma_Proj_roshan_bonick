@@ -27,7 +27,7 @@
          License | https://docs.openmc.org/en/latest/license.html
          Version | 0.15.3
      Commit Hash | 27e38e894697bb32a1dac7848d2618818b6b8daf
-       Date/Time | 2026-04-22 13:31:19
+       Date/Time | 2026-04-28 13:05:07
    MPI Processes | 1
   OpenMP Threads | 32
 
@@ -94,22 +94,47 @@
  Simulating batch 23
  Simulating batch 24
  Simulating batch 25
- Creating state point statepoint.25.h5...
+ Simulating batch 26
+ Simulating batch 27
+ Simulating batch 28
+ Simulating batch 29
+ Simulating batch 30
+ Simulating batch 31
+ Simulating batch 32
+ Simulating batch 33
+ Simulating batch 34
+ Simulating batch 35
+ Simulating batch 36
+ Simulating batch 37
+ Simulating batch 38
+ Simulating batch 39
+ Simulating batch 40
+ Simulating batch 41
+ Simulating batch 42
+ Simulating batch 43
+ Simulating batch 44
+ Simulating batch 45
+ Simulating batch 46
+ Simulating batch 47
+ Simulating batch 48
+ Simulating batch 49
+ Simulating batch 50
+ Creating state point statepoint.50.h5...
 
  =======================>     TIMING STATISTICS     <=======================
 
- Total time for initialization     = 7.3359e-01 seconds
-   Reading cross sections          = 7.1782e-01 seconds
- Total time in simulation          = 6.4196e+01 seconds
-   Time in transport only          = 6.2271e+01 seconds
-   Time in active batches          = 6.4196e+01 seconds
-   Time accumulating tallies       = 1.0804e+00 seconds
-   Time writing statepoints        = 8.3932e-01 seconds
- Total time for finalization       = 2.9664e+01 seconds
- Total time elapsed                = 9.4844e+01 seconds
- Calculation Rate (active)         = 38943.4 particles/second
+ Total time for initialization     = 8.7047e-01 seconds
+   Reading cross sections          = 8.3328e-01 seconds
+ Total time in simulation          = 4.1227e+02 seconds
+   Time in transport only          = 4.0953e+02 seconds
+   Time in active batches          = 4.1227e+02 seconds
+   Time accumulating tallies       = 1.9200e+00 seconds
+   Time writing statepoints        = 8.0599e-01 seconds
+ Total time for finalization       = 3.5162e+01 seconds
+ Total time elapsed                = 4.4859e+02 seconds
+ Calculation Rate (active)         = 24256.1 particles/second
 
  ============================>     RESULTS     <============================
 
- Leakage Fraction            = 0.01176 +/- 0.00008
+ Leakage Fraction            = 0.02455 +/- 0.00005
 
