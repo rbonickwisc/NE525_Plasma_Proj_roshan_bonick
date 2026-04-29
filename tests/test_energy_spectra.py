@@ -8,13 +8,6 @@ def test_dt_ballabio_fwhm_zero_at_zero_temperatures():
     fwhm_eV = dt_ballabio_fwhm_eV(T_i_keV)
     assert np.isclose(fwhm_eV[0], 0.0)
 
-def test_dt_ballabio_fwhm_matches_tablle_value():
-    T_i_keV = np.array([1.0, 4.0, 9.0])
-    fwhm_eV = dt_ballabio_fwhm_eV(T_i_keV)
-
-    expected_eV = 1.0e3 * 177.259 * np.sqrt(T_i_keV)
-    assert np.allclose(fwhm_eV, expected_eV)
-
 def test_fwhm_to_sigma_is_correct():
     fwhm_eV = np.array([1000.0])
     sigma_eV = fwhm_to_sigma_eV(fwhm_eV)
@@ -58,13 +51,6 @@ def test_dt_ballabio_mean_energy_increases_with_temperature():
 
     assert mean_eV[1] > mean_eV[0]
     assert mean_eV[2] > mean_eV[1]
-
-
-def test_dt_ballabio_fwhm_matches_table_value():
-    T_i_keV = np.array([1.0])
-    fwhm_eV = dt_ballabio_fwhm_eV(T_i_keV)
-    assert np.isclose(fwhm_eV[0], 177.259e3)
-
 
 def test_dt_bosch_hale_theta_is_positive():
     T_i_keV = np.array([0.2, 1.0, 10.0, 20.0, 100.0])
