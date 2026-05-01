@@ -62,7 +62,7 @@ def build_same_center_a_model() -> SourceModelParameters:
         pedestal_radius_m=0.8 * geometry.minor_radius_m,
         ion_density_pedestal_m3=8.0e19,        # flat-topped density core
         ion_density_separatrix_m3=3.0e19,
-        ion_temp_pedestal_keV=6.09,
+        ion_temp_pedestal_keV=2.09,
         ion_temp_separatrix_keV=0.1,
         beta_T=6.0,
     )
